@@ -1,6 +1,6 @@
 FROM python
 RUN pip3 install lxml toposort pyyaml
 WORKDIR /addonmaker
-COPY build.py .
+COPY build.py main.sh .
 WORKDIR /addon
-ENTRYPOINT ["python3", "/addonmaker/build.py"]
+ENTRYPOINT ["sh", "/addonmaker/main.sh"]

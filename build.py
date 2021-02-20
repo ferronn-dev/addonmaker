@@ -45,11 +45,12 @@ def files(config):
     sys.stdout.writelines([f'{line}\r\n' for line in filelist(config)])
 
 def toc(config):
-    sys.stdout.writelines([
-        f'{line}\r\n'
-        for line in [
-            *[f'## {k}: {v}' for k, v in config['toc'].items()],
-            *filelist(config)]])
+    with open(f'{config["addon"]}.toc', 'w') as f:
+        f.writelines([
+            f'{line}\r\n'
+            for line in [
+                *[f'## {k}: {v}' for k, v in config['toc'].items()],
+                *filelist(config)]])
 
 def update(config):
     for lib, repo in config['libs'].items():
