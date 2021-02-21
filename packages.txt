@@ -1,2 +1,3 @@
+liblua5.3-dev
 lua5.3
 lua-check

@@ -1,3 +1,4 @@
+local lfs = require('lfs')
 local wowapi = require('wow')
 
 local function assertEquals(want, got, ctx)
@@ -29,8 +30,15 @@ local function assertEquals(want, got, ctx)
 end
 
 local function RunTests(tests)
+  local tocs = {}
+  for file in lfs.dir('.') do
+    if file:find('%.toc$') then
+      table.insert(tocs, file)
+    end
+  end
+  assert(#tocs == 1, 'expecting exactly one toc file')
   local files = {}
-  for line in io.lines('ISBoxerCfg.toc') do
+  for line in io.lines(tocs[1]) do
     line = line:sub(1, -2)
     if line:sub(1, 2) ~= '##' then
       local f = assert(io.open(line, "r"))
