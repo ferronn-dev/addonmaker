@@ -10,6 +10,20 @@ local function RunScript(widget, name, ...)
   end
 end
 
+local unitClasses = {
+  { 'Warrior', 'WARRIOR' },
+  { 'Paladin', 'PALADIN' },
+  { 'Hunter', 'HUNTER' },
+  { 'Rogue', 'ROGUE' },
+  { 'Priest', 'PRIEST' },
+  {},
+  { 'Shaman', 'SHAMAN' },
+  { 'Mage', 'MAGE' },
+  { 'Warlock', 'WARLOCK' },
+  {},
+  { 'Druid', 'DRUID' },
+}
+
 local function CreateFrameImpl(state, className, frameName, parent, templates)
   local CreateFrame = function(...)
     return CreateFrameImpl(state, ...)
@@ -298,6 +312,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   }
   local mixins = {
     CooldownFrameTemplate = {},
+    GameTooltipTemplate = {},
     SecureActionButtonTemplate = {
       OnClick = function(self)
         local ty = self:GetAttribute('type')
@@ -369,6 +384,7 @@ return function()
     commands = {},
     frames = {},
     player = {
+      class = 2,
       health = 1500,
       healthmax = 2000,
       level = 42,
@@ -390,6 +406,7 @@ return function()
     buffs = {},
     localTime = 10000,
     serverTime = 10000000,
+    printed = '',
     SendEvent = function(self, ev, ...)
       for _, f in ipairs(self.frames) do
         if f.registeredEvents[ev] then
@@ -611,9 +628,15 @@ return function()
         return nil, nil, nil, nil, nil, nil, nil, nil, nil, state.buffs[index]
       end
     end,
-    UnitClass = UNIMPLEMENTED,
-    UnitClassBase = function()
-      return 'PALADIN'
+    UnitClass = function(unit)
+      assert(unit == 'player')
+      local name, filename = table.unpack(unitClasses[state.player.class])
+      return name, filename, state.player.class
+    end,
+    UnitClassBase = function(unit)
+      assert(unit == 'player')
+      local _, filename = table.unpack(unitClasses[state.player.class])
+      return filename, state.player.class
     end,
     UnitDebuff = UNIMPLEMENTED,
     UnitExists = function(unit)
