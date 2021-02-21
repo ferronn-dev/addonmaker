@@ -57,7 +57,7 @@ local function RunTests(tests)
       env[k] = v
     end
     env['_G'] = env
-    env['print'] = function(str) state.printed = state.printed + str + '\n' end
+    env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
     local addonEnv = {}
     for _, file in ipairs(files) do
       assert(load(file.content, file.name, 't', env))('moo', addonEnv)
