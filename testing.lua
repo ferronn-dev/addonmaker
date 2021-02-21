@@ -49,6 +49,9 @@ local function RunTests(tests)
   local failed = 0
   for i, test in ipairs(tests) do
     local api, state = wowapi()
+    if tests.before then
+      tests.before(state)
+    end
     local env = {}
     for k, v in pairs(_G) do
       env[k] = v
