@@ -403,6 +403,7 @@ return function()
     inventory = {},
     equipment = {},
     nameplates = {},
+    crafts = {},
     buffs = {},
     localTime = 10000,
     serverTime = 10000000,
@@ -514,7 +515,9 @@ return function()
     GetBindingByKey = function(key)
       return state.bindings[key]
     end,
-    GetCraftInfo = UNIMPLEMENTED,
+    GetCraftInfo = function(index)
+      return table.unpack(state.crafts[index])
+    end,
     GetFramerate = function()
       return 100
     end,
@@ -530,7 +533,9 @@ return function()
     end,
     GetLocale = UNIMPLEMENTED,
     GetMoney = UNIMPLEMENTED,
-    GetNumCrafts = UNIMPLEMENTED,
+    GetNumCrafts = function()
+      return #state.crafts
+    end,
     GetNumGroupMembers = function()
       return 0
     end,
