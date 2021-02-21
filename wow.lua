@@ -477,7 +477,9 @@ return function()
     },
     C_Map = {
       GetBestMapForUnit = UNIMPLEMENTED,
-      GetMapInfo = UNIMPLEMENTED,
+      GetMapInfo = function(mapid)
+        return { name = 'o' .. mapid }
+      end,
     },
     C_NamePlate = {
       GetNamePlateForUnit = function(unit)
@@ -521,7 +523,9 @@ return function()
     GetFramerate = function()
       return 100
     end,
-    GetInstanceInfo = UNIMPLEMENTED,
+    GetInstanceInfo = function()
+      return nil, nil, nil, nil, nil, nil, nil, state.instanceId
+    end,
     GetInventoryItemDurability = UNIMPLEMENTED,
     GetInventoryItemID = UNIMPLEMENTED,
     GetInventoryItemLink = UNIMPLEMENTED,
@@ -542,7 +546,9 @@ return function()
     GetNumTalentTabs = function()
       return 0
     end,
-    GetRealZoneText = UNIMPLEMENTED,
+    GetRealZoneText = function(instanceId)
+      return 'i' .. instanceId
+    end,
     GetServerTime = function()
       return state.serverTime
     end,
@@ -566,7 +572,9 @@ return function()
     IsInGroup = function()
       return state.inGroup
     end,
-    IsInInstance = UNIMPLEMENTED,
+    IsInInstance = function()
+      return state.instanceId ~= nil
+    end,
     IsMounted = function()
       return state.isMounted
     end,
