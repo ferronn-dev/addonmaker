@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "wow-ferronn-dev",
+  "private_key_id": "8f1f76643ce6b62db11e783048e446775ed79a01",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCvMaD0RiCzBoYM\nOe/cp4zAbO+55DdynGlI8g2CKe9WJ4wAivSkXRNxBrgQhpc8p7R5FYxPKdXuTlfG\nMnJBAo2PYPIW+/PJMgfjjncvbwm7C+mMLQjfWXqLLRhYQhTC69xQO+oNj3w49yOz\n0AkRjSoRg+VDJuaHesZi4P1uB8aKo+oyTeuSt16M2vNbPjWVOwqnrp4rOfU1U4vK\nQNXfOygO623unC7kVCtWPOG2XfxCXaTLIlqMlFB7ZYHajjSnadWbWbe9FU9BXrfJ\n2x2zE6OAr9tGUYlIMW0eqoHMK2vsz0xErAZDmIFQkkNaYAbqqEZ3wQmk0J+TVqDS\nQZWZtAKNAgMBAAECggEAJxD0CUSSChnMTnGk8RlTo50nH9aqHp6OQ7vmEz5ypk2P\nRJe30ecHbM7IwLaiht4GunF5pjV4BPnnTMT3AVQmaPB/S2zHgffsFmwwW51xGAqh\n+6YXMmbrkpltslCZ/JVHvYR+vqNeWf2SMoiTXRyTYvB8cSr9gPx5vJbbLGwDc+qW\n3Zhx7jP/PMUEKh/NzXpwYzkNqwjPa3qjO9tgJhrIc0x0Y5BfhufKunObDrqZ0T6t\nasFSiT6lJAmeCrfrKAK249XdoDWXdXOKWACXfOrD/p27BuUKKxUf7JNbf8Btpyg0\nrqJpGaM2CVNrSI89QgzXnQtXPe8uMXZWiAc1qQWJKQKBgQDUeMJJEhWSbwafy+Qp\ndgvMtuimYvu13/Qpui4B60uu0JVa0px0RtN08z/tfBYZkvGVKgCLe2zeF9KDoky4\nX74r6mImazb/LplJkJolOoD5/HsI0jdgKAbpZ+AABVdLREwHAbqCLOS7H3k5dZhA\nH7jeCVYdhElK7DS905DKKfKEpwKBgQDTFc3t2eb3TRZH35UMImdM1hYlrScdzM44\nkqNPz3KicW+wzRZFt2fPHfaoBVlbu8fgPLWHRUPsZ09E6g8Am6bG+Ie17hFUVE3T\nM8WfI/6ExpE3IgOmTZ5kbuCB7rMZn53LdylL0mD1GBepX3ajj1/FT5H7NGvKf75s\nOFzSTKFBqwKBgQDKB3lV2ahBcOivkUQGWISnx1Q4we3t5mFYO/v7PyzbsOITVigG\nOEJg9dtXiaHJ93tXBnU2K8o89BHrsKuatQ8y2s8xEMleo4SF+sVXmOWCzpx+qsSU\n3fqUfXz1CB8VJn/UOcSKev2TID44cKSwdHloRyBnOJ4oa6lKxpzqXjCICQKBgQCP\niMAjAI0BlLWV4f7j5XEA2oLs07VJmj6QUYYjexikRSaBvrNqbLB2MhXLYvfEXQgo\n/p8hgIQTeJx6a/4Pl8fsfIsrttqp0TmqaAX1lPA5MR0FtGdu6lDOUmbvc3Tt84/F\nDx5RpJixkNRmI7f0uEWTUeweOSMi64J87EaR6fGtSQKBgQCNyQXToEyJzIar+efN\nu7cCUQ0+EebaKY4SkqdA6/mw6jABFCS2X6WVtu41aohcw1LSz4o84hIPvy/LsjX0\nAl3pAxjAXmP+VNZ40Sb314y3ixppQ5jumd6i+LPu7rAyqlItNorfH6Bhfly0FF2x\n1Gq0r0/nz63Edrfp0M/QTs94bQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "addonmaker@wow-ferronn-dev.iam.gserviceaccount.com",
+  "client_id": "112508667037196127312",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/addonmaker%40wow-ferronn-dev.iam.gserviceaccount.com"
+}
