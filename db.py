@@ -12,12 +12,13 @@ def bq(query):
             default_dataset='wow-ferronn-dev.wow_tools_dbc_1_13_6_36935_enUS',
             use_legacy_sql=False),
         query=query)
-    script.result()
-    return [
+    result = script.result()
+    kids = [
         job for job in sorted(
             client.list_jobs(parent_job=script.job_id),
             key=lambda j: int(j.job_id.split('_')[-1]))
         if job.statement_type == 'SELECT']
+    return kids if kids else [result]
 
 for sql, ts in yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)['sql'].items():
     sqlpath = Path(sql)
