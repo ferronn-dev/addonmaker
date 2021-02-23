@@ -391,6 +391,7 @@ return function()
       name = 'Kewhand',
       power = 1000,
       powermax = 1250,
+      race = 'Human',
     },
     tickers = {},
     cvars = {},
@@ -529,7 +530,10 @@ return function()
     end,
     GetInventoryItemDurability = UNIMPLEMENTED,
     GetInventoryItemID = UNIMPLEMENTED,
-    GetInventoryItemLink = UNIMPLEMENTED,
+    GetInventoryItemLink = function(unit, i)
+      assert(unit == 'player')
+      return state.equipment[i]
+    end,
     GetItemCooldown = function()
       return 0
     end,
@@ -640,10 +644,15 @@ return function()
     strsplit = function(sep, s, n)
       assert(n == nil)
       local result = {}
-      for w in string.gmatch(s, '([^'..sep..']+)') do
-        table.insert(result, w)
+      while true do
+        local pos = string.find(s, sep)
+        if not pos then
+          table.insert(result, s)
+          return table.unpack(result)
+        end
+        table.insert(result, s:sub(0, pos - 1))
+        s = s:sub(pos + 1)
       end
-      return table.unpack(result)
     end,
     TargetFrame = CreateFrame('Button'),
     TimeManagerClockButton = CreateFrame('Frame'),
@@ -694,7 +703,7 @@ return function()
       return nil, 'MANA'
     end,
     UnitRace = function()
-      return 'Human'
+      return state.player.race
     end,
     UnitXP = UNIMPLEMENTED,
     UnitXPMax = UNIMPLEMENTED,
