@@ -39,5 +39,6 @@ Path(f'{cfg["addon"]}.toc').write_text('\r\n'.join([
 Path('/tmp/build.dd').write_text('\n'.join([
     'ninja_dyndep_version = 1',
     f'build {cfg["addon"]}.zip: dyndep | ' + ' '.join(files),
+    '  restat = 1',
     '',
 ]))

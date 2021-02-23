@@ -1,2 +1,3 @@
-python3 /addonmaker/build.py
-ninja -f /tmp/build.ninja
+set -e
+python3 ../addonmaker/build.py
+ninja -f /tmp/build.ninja "$@"
