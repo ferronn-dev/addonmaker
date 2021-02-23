@@ -20,17 +20,33 @@ def bq(query):
         if job.statement_type == 'SELECT']
     return kids if kids else [result]
 
-def job_to_value(job):
-    return {
-        key: val if isinstance(val, str) else [v.values() for v in val]
-        for key, val in job
-    }
+def is_scalar(x):
+    return isinstance(x, str) or isinstance(x, int)
+
+def maybe_dict(xs):
+    if xs and isinstance(xs[0], list) and len(xs[0]) == 2 and not is_scalar(xs[0][1]):
+        return {
+            k: (v[0] if len(v) == 1 and is_scalar(v[0]) else v)
+            for k, v in xs
+        }
+    else:
+        return xs
+
+def parse(data):
+    return (
+        data
+        if is_scalar(data)
+        else parse(data.values())
+        if hasattr(data, 'values')
+        else maybe_dict([parse(d) for d in data])
+        if hasattr(data, '__getitem__') or hasattr(data, '__iter__')
+        else 1/0)
 
 for sql, ts in yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)['sql'].items():
     sqlpath = Path(sql)
     trie = pygtrie.StringTrie(separator='.')
     for path, job in zip(ts, bq(sqlpath.read_text())):
-        trie[path] = job_to_value(job)
+        trie[path] = parse(list(job))
     data = trie.traverse(
         lambda _, path, kids, value=None:
         (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:

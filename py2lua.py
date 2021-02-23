@@ -23,7 +23,7 @@ def py2lua(x, n=0):
         ]) + f'{" "*n}}}') if isinstance(x, abc.Mapping) else
         ('{\n' + ''.join([
             f'{" "*(n+2)}{py2lua(v, n+2)},\n' for v in x
-        ]) + f'{" "*n}}}') if isinstance(x, abc.Iterable) else
+        ]) + f'{" "*n}}}') if isinstance(x, abc.Iterable) or hasattr(x, '__getitem__') else
         'nil')
 
 def addon_file(vs):
