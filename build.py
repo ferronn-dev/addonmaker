@@ -41,9 +41,6 @@ def filelist(config):
         }.items()
     })
 
-def files(config):
-    sys.stdout.writelines([f'{line}\r\n' for line in filelist(config)])
-
 def toc(config):
     with open(f'{config["addon"]}.toc', 'w') as f:
         f.writelines([
@@ -52,16 +49,6 @@ def toc(config):
                 *[f'## {k}: {v}' for k, v in config['toc'].items()],
                 *filelist(config)]])
 
-def update(config):
-    for lib, repo in config['libs'].items():
-        subprocess.run(
-            args=(
-                ['svn', 'update', f'libs/{lib}'] if repo.endswith('trunk') else
-                ['git', '-C', f'libs/{lib}', 'pull']),
-            check=True,
-            stderr=sys.stderr,
-            stdout=sys.stderr)
-
 def zip_(config):
     addon = config['addon']
     with zipfile.ZipFile(f'{addon}.zip', 'w') as zf:
@@ -69,17 +56,14 @@ def zip_(config):
             zf.write(f, f'{addon}/{f}')
 
 commands = {
-    'files': files,
     'toc': toc,
-    'update': update,
     'zip': zip_,
 }
 
 def args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', default='build.yaml')
     parser.add_argument('cmd', choices=commands.keys())
     return parser.parse_args()
 
 args = args()
-commands[args.cmd](yaml.load(Path(args.config).read_text(), Loader=yaml.Loader))
+commands[args.cmd](yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader))
