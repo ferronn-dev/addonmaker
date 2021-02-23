@@ -1,3 +1,4 @@
+-- luacheck: globals globals read_globals std
 std = 'min'
 read_globals = {
   'ANCHOR_BOTTOMLEFT',

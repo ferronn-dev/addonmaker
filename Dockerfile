@@ -11,5 +11,6 @@ RUN rm -rf luarocks-3.5.0*
 COPY rocks.txt .
 RUN luarocks install `cat rocks.txt`
 COPY build.py db.py py2lua.py main.sh testing.lua wow.lua luacheckrc.lua creds.json ./
+RUN luacheck *.lua
 WORKDIR /addon
 ENTRYPOINT ["sh", "/addonmaker/main.sh"]
