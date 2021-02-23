@@ -405,6 +405,7 @@ return function()
     nameplates = {},
     crafts = {},
     buffs = {},
+    talents = {},
     localTime = 10000,
     serverTime = 10000000,
     printed = '',
@@ -543,8 +544,12 @@ return function()
     GetNumGroupMembers = function()
       return 0
     end,
+    GetNumTalents = function(tab)
+      assert(tab >= 1 and tab <= #state.talents)
+      return #state.talents[tab]
+    end,
     GetNumTalentTabs = function()
-      return 0
+      return #state.talents
     end,
     GetRealZoneText = function(instanceId)
       return 'i' .. instanceId
@@ -559,6 +564,12 @@ return function()
       return 'spell'..spell, nil, 12345, 0
     end,
     GetSpellSubtext = UNIMPLEMENTED,
+    GetTalentInfo = function(tab, i)
+      assert(tab >= 1 and tab <= #state.talents)
+      assert(i >= 1 and i <= #state.talents[tab])
+      local c = state.talents[tab][i] or 0
+      return nil, nil, nil, nil, c
+    end,
     GetTime = function()
       return state.localTime
     end,
