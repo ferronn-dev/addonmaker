@@ -20,14 +20,17 @@ def bq(query):
         if job.statement_type == 'SELECT']
     return kids if kids else [result]
 
+def job_to_value(job):
+    return {
+        key: val if isinstance(val, str) else [v.values() for v in val]
+        for key, val in job
+    }
+
 for sql, ts in yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)['sql'].items():
     sqlpath = Path(sql)
     trie = pygtrie.StringTrie(separator='.')
     for path, job in zip(ts, bq(sqlpath.read_text())):
-        trie[path] = {
-            key: val if isinstance(val, str) else [v.values() for v in val]
-            for key, val in job
-        }
+        trie[path] = job_to_value(job)
     data = trie.traverse(
         lambda _, path, kids, value=None:
         (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
