@@ -36,7 +36,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
         ' '.join(sqlluas),
         ' : sql | ',
         ' '.join(cfg['sql'].keys()),
-    ])),
+    ]) if sqlluas else ''),
     '',
     (f'build | {cfg["addon"]}.toc /tmp/build.dd : toc | ' +
         ' '.join([f'libs/{lib}' for lib in cfg['libs'].keys()])),
