@@ -26,7 +26,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
         line
         for lib, repo in cfg['libs'].items()
         for line in [
-            f'build libs/{lib} : ' + 'svn' if '/trunk' in repo else 'git',
+            f'build libs/{lib} : ' + ('svn' if '/trunk' in repo else 'git'),
             f'  repo = {repo}',
             '',
         ]
