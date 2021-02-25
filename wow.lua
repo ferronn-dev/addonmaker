@@ -393,6 +393,7 @@ return function()
       powermax = 1250,
       race = 'Human',
     },
+    realm = 'Realm',
     tickers = {},
     cvars = {},
     sentChats = {},
@@ -554,6 +555,9 @@ return function()
     end,
     GetNumTalentTabs = function()
       return #state.talents
+    end,
+    GetRealmName = function()
+      return state.realm
     end,
     GetRealZoneText = function(instanceId)
       return 'i' .. instanceId
