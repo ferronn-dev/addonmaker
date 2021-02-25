@@ -32,15 +32,20 @@ def maybe_dict(xs):
     else:
         return xs
 
+def dunno(data):
+    raise Exception('no idea what to do with a value of type ' + str(type(data)))
+
 def parse(data):
     return (
-        data
+        None
+        if data is None
+        else data
         if is_scalar(data)
         else parse(data.values())
         if hasattr(data, 'values')
         else maybe_dict([parse(d) for d in data])
         if hasattr(data, '__getitem__') or hasattr(data, '__iter__')
-        else 1/0)
+        else dunno(data))
 
 for sql, ts in yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)['sql'].items():
     sqlpath = Path(sql)
