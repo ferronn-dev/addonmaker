@@ -20,7 +20,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     '  command = python3 ../addonmaker/gentoc.py',
     '',
     'rule zip',
-    '  command = sh ../addonmaker/runtests.sh && python3 ../addonmaker/genzip.py $in',
+    '  command = bash ../addonmaker/runtests.sh && python3 ../addonmaker/genzip.py $in',
     '',
     *[
         line
