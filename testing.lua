@@ -1,32 +1,9 @@
 local lfs = require('lfs')
 local wowapi = require('wow')
+local luassert = require 'luassert'
 
-local function assertEquals(want, got, ctx)
-  ctx = ctx or '_'
-  assert(
-      type(want) == type(got),
-      'in ' .. ctx .. '\nwant ' .. type(want) .. '\ngot ' .. type(got))
-  if type(want) == 'table' then
-    local wantKeys, gotKeys = {}, {}
-    for k, _ in pairs(want) do
-      table.insert(wantKeys, k)
-    end
-    for k, _ in pairs(got) do
-      table.insert(gotKeys, k)
-    end
-    assertEquals(#wantKeys, #gotKeys, '#tablekeys ' .. ctx)
-    table.sort(wantKeys)
-    table.sort(gotKeys)
-    for i = 1, #wantKeys do
-      assertEquals(wantKeys[i], gotKeys[i], 'tablekeys ' .. ctx)
-    end
-    for i = 1, #wantKeys do
-      local key = wantKeys[i]
-      assertEquals(want[key], got[key], 'table[' .. key .. '] ' .. ctx)
-    end
-  else
-    assert(want == got, 'in ' .. ctx .. '\nwant ' .. tostring(want) .. '\ngot ' .. tostring(got))
-  end
+local function assertEquals(want, got)
+  luassert.are.same(want, got)
 end
 
 local function RunTests(tests)

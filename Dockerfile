@@ -11,7 +11,7 @@ RUN tar zxpf luarocks-3.5.0.tar.gz
 RUN cd luarocks-3.5.0 && ./configure && make && make install
 RUN rm -rf luarocks-3.5.0*
 COPY rocks.txt .
-RUN luarocks install `cat rocks.txt`
+RUN cat rocks.txt | xargs -n1 luarocks install
 COPY *.lua *.py *.sh creds.json ./
 RUN luacheck *.lua
 WORKDIR /addon
