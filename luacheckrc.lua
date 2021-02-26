@@ -1,5 +1,5 @@
 -- luacheck: globals globals read_globals std
-std = 'min'
+std = 'min+busted'
 read_globals = {
   'ANCHOR_BOTTOMLEFT',
   'ANCHOR_NONE',
