@@ -326,9 +326,13 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
             unit = self:GetAttribute('unit'),
           })
         end
-      end
+      end,
     },
-    SecureHandlerStateTemplate = {},
+    SecureHandlerStateTemplate = {
+      Execute = UNIMPLEMENTED,
+      SetFrameRef = UNIMPLEMENTED,
+      WrapScript = UNIMPLEMENTED,
+    },
     SecureUnitButtonTemplate = {},
   }
   local toProcess = {className}
@@ -362,7 +366,11 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   for t in string.gmatch(templates or '', '[^,]+') do
     assert(mixins[t] ~= nil, 'unknown mixin ' .. t)
     for k, v in pairs(mixins[t]) do
-      frame:SetScript(k, v)
+      if k == 'OnClick' then
+        frame:SetScript(k, v)
+      else
+        frame[k] = v
+      end
     end
   end
   if classes['Frame'] then
