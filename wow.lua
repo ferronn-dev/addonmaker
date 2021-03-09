@@ -473,6 +473,14 @@ return function()
       end
       return false
     end,
+    EnterCombat = function(self)
+      self.inCombat = true
+      self:SendEvent('PLAYER_REGEN_DISABLED')
+    end,
+    LeaveCombat = function(self)
+      self:SendEvent('PLAYER_REGEN_ENABLED')
+      self.inCombat = false
+    end,
   }
   local wowapi = {
     C_ChatInfo = {
