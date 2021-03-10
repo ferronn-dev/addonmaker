@@ -1,7 +1,6 @@
-from collections import abc
 from pathlib import Path
+import sys
 import pygtrie
-import yaml
 from google.cloud import bigquery
 import py2lua
 
@@ -47,15 +46,16 @@ def parse(data):
         if hasattr(data, '__getitem__') or hasattr(data, '__iter__')
         else dunno(data))
 
-for sql, ts in yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)['sql'].items():
-    sqlpath = Path(sql)
-    trie = pygtrie.StringTrie(separator='.')
-    for path, job in zip(ts, bq(sqlpath.read_text())):
-        trie[path] = parse(list(job))
-    data = trie.traverse(
-        lambda _, path, kids, value=None:
-        (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
-        { path[-1]: merged } if path else merged)()
-    )
-    with open(sqlpath.with_suffix('.lua'), 'w') as f:
-        f.write(py2lua.addon_file(data))
+sql = sys.argv[1]
+ts = sys.argv[2:]
+sqlpath = Path(sql)
+trie = pygtrie.StringTrie(separator='.')
+for path, job in zip(ts, bq(sqlpath.read_text())):
+    trie[path] = parse(list(job))
+data = trie.traverse(
+    lambda _, path, kids, value=None:
+    (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
+    { path[-1]: merged } if path else merged)()
+)
+with open(sqlpath.with_suffix('.lua'), 'w') as f:
+    f.write(py2lua.addon_file(data))

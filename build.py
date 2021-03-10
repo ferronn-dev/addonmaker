@@ -14,7 +14,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     '',
     'rule sql',
     '  command = env GOOGLE_APPLICATION_CREDENTIALS=../addonmaker/creds.json ' +
-        'python3 ../addonmaker/db.py',
+        'python3 ../addonmaker/db.py $sql $tables',
     '',
     'rule toc',
     '  command = python3 ../addonmaker/gentoc.py',
@@ -31,13 +31,16 @@ Path('/tmp/build.ninja').write_text('\n'.join([
             '',
         ]
     ],
-    (''.join([
-        'build | ',
-        ' '.join(sqlluas),
-        ' : sql | ',
-        ' '.join(cfg['sql'].keys()),
-    ]) if sqlluas else ''),
-    '',
+    *[
+        line
+        for sql, tables in cfg['sql'].items()
+        for line in [
+            f'build {Path(sql).with_suffix(".lua")} : sql',
+            f'  sql = {sql}',
+            f'  tables = {" ".join(tables)}',
+            '',
+        ]
+    ],
     (f'build | {cfg["addon"]}.toc /tmp/build.dd : toc | ' +
         ' '.join([f'libs/{lib}' for lib in cfg['libs'].keys()])),
     '',
