@@ -3,6 +3,7 @@ from pathlib import Path
 import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
+sqlluas = [str(Path(f).with_suffix('.lua')) for f in cfg['sql']]
 
 Path('/tmp/build.ninja').write_text('\n'.join([
     'rule git',
@@ -43,7 +44,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     (f'build | {cfg["addon"]}.toc /tmp/build.dd : toc | ' +
         ' '.join([f'libs/{lib}' for lib in cfg['libs'].keys()])),
     '',
-    f'build {cfg["addon"]}.zip: zip {cfg["addon"]}.toc || /tmp/build.dd',
+    f'build | {cfg["addon"]}.zip: zip {cfg["addon"]}.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
     '  dyndep = /tmp/build.dd',
     '',
 ]))
