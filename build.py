@@ -45,7 +45,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
         ' '.join([f'libs/{lib}' for lib in cfg['libs'].keys()])),
     '',
     f'build | {cfg["addon"]}.zip: ' +
-        'zip {cfg["addon"]}.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
+        f'zip {cfg["addon"]}.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
     '  dyndep = /tmp/build.dd',
     '',
 ]))
