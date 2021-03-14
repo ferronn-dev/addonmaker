@@ -20,7 +20,7 @@ def bq(query):
     return kids if kids else [result]
 
 def is_scalar(x):
-    return isinstance(x, str) or isinstance(x, int)
+    return isinstance(x, (str, int))
 
 def maybe_dict(xs):
     if xs and isinstance(xs[0], list) and len(xs[0]) == 2 and not is_scalar(xs[0][1]):
@@ -28,8 +28,7 @@ def maybe_dict(xs):
             k: (v[0] if len(v) == 1 and is_scalar(v[0]) else v)
             for k, v in xs
         }
-    else:
-        return xs
+    return xs
 
 def dunno(data):
     raise Exception('no idea what to do with a value of type ' + str(type(data)))

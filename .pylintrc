@@ -2,12 +2,10 @@
 persistent=no
 
 [MESSAGES CONTROL]
-disable=consider-merging-isinstance,
-        c-extension-no-member,
+disable=c-extension-no-member,
         invalid-name,
         missing-function-docstring,
         missing-module-docstring,
-        no-else-return,
         redefined-outer-name,
         undefined-loop-variable,
 
