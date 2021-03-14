@@ -6,6 +6,7 @@ from google.cloud import bigquery
 import py2lua
 
 def run_bigqueries(query):
+    """Runs the given SQL on BigQuery and outputs all SELECTs performed."""
     client = bigquery.Client('wow-ferronn-dev')
     script = client.query(
         job_config=bigquery.job.QueryJobConfig(
@@ -21,9 +22,11 @@ def run_bigqueries(query):
     return kids if kids else [result]
 
 def is_scalar(value):
+    """Returns whether the given value is a scalar."""
     return isinstance(value, (str, int))
 
 def maybe_dict(value):
+    """Returns a dictionary if the given SELECT output looks dict-like."""
     if (value
             and isinstance(value[0], list)
             and len(value[0]) == 2
@@ -35,9 +38,11 @@ def maybe_dict(value):
     return value
 
 def dunno(data):
+    """Raises an exception. Used when parse() cannot deal with the given data."""
     raise Exception('no idea what to do with a value of type ' + str(type(data)))
 
 def parse(data):
+    """Converts SELECT output into a python data structure, or throws dunno()."""
     return (
         None
         if data is None

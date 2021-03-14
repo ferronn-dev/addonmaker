@@ -3,6 +3,7 @@ from collections import abc
 import numbers
 
 def luaquote(string):
+    """Quotes a python string as a Lua string literal."""
     replacements = [
         ('\\', '\\\\'),
         ('\'', '\\\''),
@@ -13,6 +14,7 @@ def luaquote(string):
     return '\'' + string + '\''
 
 def py2lua(value, indent=''):
+    """Converts a python datatype into a string containing a Lua literal."""
     recurse = lambda x: py2lua(x, indent + '  ')
     return (
         luaquote(value) if isinstance(value, str) else
@@ -29,6 +31,7 @@ def py2lua(value, indent=''):
         'nil')
 
 def addon_file(dbdict):
+    """Converts a name-value dictionary into a WoW addon file with a literal dictionary."""
     return '\n'.join([
         '-- luacheck: max_line_length 1000',
         'local _, G = ...',

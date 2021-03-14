@@ -3,7 +3,6 @@ persistent=no
 
 [MESSAGES CONTROL]
 disable=c-extension-no-member,
-        missing-function-docstring,
 
 [REPORTS]
 score=no
