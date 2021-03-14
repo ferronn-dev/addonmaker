@@ -7,7 +7,6 @@ disable=c-extension-no-member,
         missing-function-docstring,
         missing-module-docstring,
         redefined-outer-name,
-        undefined-loop-variable,
 
 [REPORTS]
 score=no
