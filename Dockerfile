@@ -12,7 +12,7 @@ RUN cd luarocks-3.5.0 && ./configure && make && make install
 RUN rm -rf luarocks-3.5.0*
 COPY rocks.txt .
 RUN cat rocks.txt | xargs -n1 luarocks install
-COPY *.lua *.py *.sh creds.json ./
-RUN luacheck *.lua
+COPY *.lua *.py *.sh creds.json .pylintrc ./
+RUN luacheck *.lua && pylint *.py
 WORKDIR /addon
 ENTRYPOINT ["sh", "/addonmaker/main.sh"]
