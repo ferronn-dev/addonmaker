@@ -4,7 +4,6 @@ persistent=no
 [MESSAGES CONTROL]
 disable=c-extension-no-member,
         missing-function-docstring,
-        missing-module-docstring,
 
 [REPORTS]
 score=no

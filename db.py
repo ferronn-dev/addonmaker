@@ -1,3 +1,4 @@
+"""Runs SQL queries from build.yaml specs and outputs Lua."""
 from pathlib import Path
 import sys
 import pygtrie

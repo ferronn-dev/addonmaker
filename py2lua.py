@@ -1,3 +1,4 @@
+"""Converts python datatypes into Lua strings."""
 from collections import abc
 import numbers
 
