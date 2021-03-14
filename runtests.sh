@@ -6,4 +6,4 @@ compgen -G "*test.lua" | while read test; do
   lua $test
 done
 compgen -G "*_spec.lua" | xargs -r busted
-luacheck --config ../addonmaker/luacheckrc.lua *.lua
+luacheck -q --config ../addonmaker/luacheckrc.lua *.lua
