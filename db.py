@@ -4,7 +4,7 @@ import pygtrie
 from google.cloud import bigquery
 import py2lua
 
-def bq(query):
+def run_bigqueries(query):
     client = bigquery.Client('wow-ferronn-dev')
     script = client.query(
         job_config=bigquery.job.QueryJobConfig(
@@ -19,16 +19,19 @@ def bq(query):
         if job.statement_type == 'SELECT']
     return kids if kids else [result]
 
-def is_scalar(x):
-    return isinstance(x, (str, int))
+def is_scalar(value):
+    return isinstance(value, (str, int))
 
-def maybe_dict(xs):
-    if xs and isinstance(xs[0], list) and len(xs[0]) == 2 and not is_scalar(xs[0][1]):
+def maybe_dict(value):
+    if (value
+            and isinstance(value[0], list)
+            and len(value[0]) == 2
+            and not is_scalar(value[0][1])):
         return {
             k: (v[0] if len(v) == 1 and is_scalar(v[0]) else v)
-            for k, v in xs
+            for k, v in value
         }
-    return xs
+    return value
 
 def dunno(data):
     raise Exception('no idea what to do with a value of type ' + str(type(data)))
@@ -49,7 +52,7 @@ sql = sys.argv[1]
 ts = sys.argv[2:]
 sqlpath = Path(sql)
 trie = pygtrie.StringTrie(separator='.')
-for path, job in zip(ts, bq(sqlpath.read_text())):
+for path, job in zip(ts, run_bigqueries(sqlpath.read_text())):
     trie[path] = parse(list(job))
 out = trie.traverse(
     lambda _, path, kids, value=None:

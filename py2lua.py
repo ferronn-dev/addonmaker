@@ -1,35 +1,36 @@
 from collections import abc
 import numbers
 
-def luaquote(s):
+def luaquote(string):
     replacements = [
         ('\\', '\\\\'),
         ('\'', '\\\''),
         ('\n', '\\n'),
     ]
     for old, new in replacements:
-        s = s.replace(old, new)
-    return '\'' + s + '\''
+        string = string.replace(old, new)
+    return '\'' + string + '\''
 
-def py2lua(x, n=0):
+def py2lua(value, indent=''):
+    recurse = lambda x: py2lua(x, indent + '  ')
     return (
-        luaquote(x) if isinstance(x, str) else
-        ('true' if x else 'false') if isinstance(x, bool) else
-        str(x) if isinstance(x, numbers.Number) else
-        py2lua(x._asdict(), n) if hasattr(x, '_asdict') else
+        luaquote(value) if isinstance(value, str) else
+        ('true' if value else 'false') if isinstance(value, bool) else
+        str(value) if isinstance(value, numbers.Number) else
+        py2lua(value._asdict(), indent) if hasattr(value, '_asdict') else
         ('{\n' + ''.join([
-            f'{" "*(n+2)}[{py2lua(k, n+2)}] = {py2lua(v, n+2)},\n'
-            for k, v in x.items() if v is not None
-        ]) + f'{" "*n}}}') if isinstance(x, abc.Mapping) else
+            f'{indent}  [{recurse(k)}] = {recurse(v)},\n'
+            for k, v in value.items() if v is not None
+        ]) + f'{indent}}}') if isinstance(value, abc.Mapping) else
         ('{\n' + ''.join([
-            f'{" "*(n+2)}{py2lua(v, n+2)},\n' for v in x
-        ]) + f'{" "*n}}}') if isinstance(x, abc.Iterable) or hasattr(x, '__getitem__') else
+            f'{indent}  {recurse(v)},\n' for v in value
+        ]) + f'{indent}}}') if isinstance(value, abc.Iterable) or hasattr(value, '__getitem__') else
         'nil')
 
-def addon_file(vs):
+def addon_file(dbdict):
     return '\n'.join([
         '-- luacheck: max_line_length 1000',
         'local _, G = ...',
-        *[f'G.{k} = {py2lua(v)}' for k, v in vs.items()],
+        *[f'G.{k} = {py2lua(v)}' for k, v in dbdict.items()],
         ''
     ])
