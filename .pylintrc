@@ -6,7 +6,6 @@ disable=c-extension-no-member,
         invalid-name,
         missing-function-docstring,
         missing-module-docstring,
-        redefined-outer-name,
 
 [REPORTS]
 score=no

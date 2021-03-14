@@ -51,10 +51,10 @@ sqlpath = Path(sql)
 trie = pygtrie.StringTrie(separator='.')
 for path, job in zip(ts, bq(sqlpath.read_text())):
     trie[path] = parse(list(job))
-data = trie.traverse(
+out = trie.traverse(
     lambda _, path, kids, value=None:
     (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
     { path[-1]: merged } if path else merged)()  # pylint: disable=undefined-loop-variable
 )
 with open(sqlpath.with_suffix('.lua'), 'w') as f:
-    f.write(py2lua.addon_file(data))
+    f.write(py2lua.addon_file(out))
