@@ -1,5 +1,8 @@
--- luacheck: globals globals read_globals std
-std = 'min+busted'
+-- luacheck: globals files globals read_globals std
+files['*_spec.lua'] = {
+  std = '+busted',
+}
+std = 'min'
 read_globals = {
   'ANCHOR_BOTTOMLEFT',
   'ANCHOR_NONE',
