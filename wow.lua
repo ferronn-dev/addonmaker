@@ -734,7 +734,7 @@ return function()
       end
     end,
     WOW_PROJECT_CLASSIC = 2,
-    WOW_PROJECT_ID = 1,
+    WOW_PROJECT_ID = 2,
     WOW_PROJECT_MAINLINE = 1,
   }
   return wowapi, state
