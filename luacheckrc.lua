@@ -108,6 +108,9 @@ read_globals = {
   'strsplit',
   'table.unpack',
   'unpack',
+  'WOW_PROJECT_CLASSIC',
+  'WOW_PROJECT_ID',
+  'WOW_PROJECT_MAINLINE',
 }
 globals = {
   'SlashCmdList',
