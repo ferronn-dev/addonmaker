@@ -176,7 +176,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
           return self.spell
         end,
         GetUnit = function(self)
-          return self.unit
+          return "bogusUnitName", self.unit
         end,
         SetItem = function(self, item)
           self.item = item
