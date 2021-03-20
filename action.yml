@@ -1,0 +1,5 @@
+name: addonmaker
+description: addonmaker by ferronn-dev
+runs:
+  using: docker
+  image: Dockerfile
