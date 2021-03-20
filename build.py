@@ -13,14 +13,14 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     '  command = svn checkout $repo $out',
     '',
     'rule sql',
-    '  command = env GOOGLE_APPLICATION_CREDENTIALS=../addonmaker/creds.json ' +
-        'python3 ../addonmaker/db.py $sql $tables',
+    '  command = env GOOGLE_APPLICATION_CREDENTIALS=/addonmaker/creds.json ' +
+        'python3 /addonmaker/db.py $sql $tables',
     '',
     'rule toc',
-    '  command = python3 ../addonmaker/gentoc.py',
+    '  command = python3 /addonmaker/gentoc.py',
     '',
     'rule zip',
-    '  command = bash ../addonmaker/runtests.sh && python3 ../addonmaker/genzip.py $in',
+    '  command = bash /addonmaker/runtests.sh && python3 /addonmaker/genzip.py $in',
     '',
     *[
         line
