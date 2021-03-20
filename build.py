@@ -7,7 +7,8 @@ sqlluas = [str(Path(f).with_suffix('.lua')) for f in cfg['sql']]
 
 Path('/tmp/build.ninja').write_text('\n'.join([
     'rule git',
-    '  command = git clone --recurse-submodules $repo $out',
+    '  command = git clone --recurse-submodules $repo $out && ' +
+        'if [ -f $out/build.yaml ]; then (cd $out && sh /addonmaker/main.sh); fi',
     '',
     'rule svn',
     '  command = svn checkout $repo $out',
