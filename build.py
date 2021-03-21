@@ -7,11 +7,12 @@ sqlluas = [str(Path(f).with_suffix('.lua')) for f in cfg['sql']]
 
 Path('/tmp/build.ninja').write_text('\n'.join([
     'rule git',
-    '  command = git clone --recurse-submodules $repo $out && ' +
-        'if [ -f $out/build.yaml ]; then (cd $out && sh /addonmaker/main.sh); fi',
+    '  command = while ! (git clone --recurse-submodules $repo $out && ' +
+        'if [ -f $out/build.yaml ]; then (cd $out && sh /addonmaker/main.sh); fi); ' +
+        'do rm -rf $out; sleep 5; done',
     '',
     'rule svn',
-    '  command = while ! svn checkout $repo $out; do sleep 5; done',
+    '  command = while ! svn checkout $repo $out; do rm -rf $out; sleep 5; done',
     '',
     'rule sql',
     '  command = env GOOGLE_APPLICATION_CREDENTIALS=/addonmaker/creds.json ' +
