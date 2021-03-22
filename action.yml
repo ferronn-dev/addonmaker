@@ -2,4 +2,4 @@ name: addonmaker
 description: addonmaker by ferronn-dev
 runs:
   using: docker
-  image: docker://docker.pkg.github.com/ferronn-dev/addonmaker/addonmaker:main
+  image: Dockerfile
