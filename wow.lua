@@ -314,6 +314,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     },
   }
   local mixins = {
+    ActionButtonTemplate = {},
     CooldownFrameTemplate = {},
     GameTooltipTemplate = {},
     SecureActionButtonTemplate = {
@@ -366,7 +367,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   for _, v in ipairs(scripts) do
     frame:SetScript(v, function() end)
   end
-  for t in string.gmatch(templates or '', '[^,]+') do
+  for t in string.gmatch(templates or '', '[^, ]+') do
     assert(mixins[t] ~= nil, 'unknown mixin ' .. t)
     for k, v in pairs(mixins[t]) do
       if k == 'OnClick' then
