@@ -1,6 +1,7 @@
 repo="$1"
 out="$2"
-fetch() {
+fetch() (
+  set -e
   if echo "$repo" | grep /trunk$
   then
     svn checkout "$repo" "$out"
@@ -11,7 +12,7 @@ fetch() {
   then
     (cd "$out" && sh /addonmaker/main.sh)
   fi
-}
+)
 while ! fetch
 do
     rm -rf "$out"
