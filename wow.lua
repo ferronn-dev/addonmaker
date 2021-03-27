@@ -97,6 +97,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     Cooldown = {
       inherits = {'Frame'},
       api = {
+        SetDrawBling = UNIMPLEMENTED,
         SetReverse = UNIMPLEMENTED,
       }
     },
@@ -227,6 +228,9 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
           return CreateFrame('AnimationGroup', nil, self)
         end,
         GetCenter = UNIMPLEMENTED,
+        GetEffectiveAlpha = function()
+          return 1.0
+        end,
         GetHeight = function(self)
           return self.height or 10
         end,
@@ -240,6 +244,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         end,
         IsVisible = UNIMPLEMENTED,
         SetAllPoints = UNIMPLEMENTED,
+        SetAlpha = UNIMPLEMENTED,
         SetHeight = function(self, value)
           self.height = value
         end ,
@@ -321,7 +326,6 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         end,
         -- TODO move this to ParentedObject
         IsForbidden = UNIMPLEMENTED,
-        SetAlpha = UNIMPLEMENTED,
       },
     },
   }
@@ -331,6 +335,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         Border = CreateFrame('Texture'),
         cooldown = CreateFrame('Cooldown'),
         Count = CreateFrame('FontString'),
+        Flash = CreateFrame('Texture'),
         FlyoutArrow = CreateFrame('Frame'),
         FlyoutBorder = CreateFrame('Frame'),
         FlyoutBorderShadow = CreateFrame('Frame'),
@@ -558,12 +563,14 @@ return function()
       end
     },
     ChatFrame1 = CreateFrame('MessageFrame'),
+    CooldownFrame_Set = UNIMPLEMENTED,
     CreateFrame = CreateFrame,
     DisableAddOn = UNIMPLEMENTED,
     EquipItemByName = function(item, slot)
       state.equipment[slot] = item
     end,
     ERR_LEARN_SPELL_S = 'You have learned a new spell: %s.',
+    FindSpellBookSlotBySpellID = UNIMPLEMENTED,
     format = string.format,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
     GetAddOnEnableState = UNIMPLEMENTED,
@@ -627,13 +634,18 @@ return function()
     GetServerTime = function()
       return state.serverTime
     end,
+    GetSpellCharges = UNIMPLEMENTED,
     GetSpellCooldown = function()
-      return 0
+      return 0, 0, 0
     end,
     GetSpellInfo = function(spell)
       return 'spell'..spell, nil, 12345, 0
     end,
+    GetSpellLossOfControlCooldown = function()
+      return 0, 0
+    end,
     GetSpellSubtext = UNIMPLEMENTED,
+    GetSpellTexture = UNIMPLEMENTED,
     GetTalentInfo = function(tab, i)
       assert(tab >= 1 and tab <= #state.talents)
       assert(i >= 1 and i <= #state.talents[tab])
@@ -650,6 +662,10 @@ return function()
     end,
     InterfaceOptions_AddCategory = UNIMPLEMENTED,
     InterfaceOptionsFrame_OpenToCategory = UNIMPLEMENTED,
+    IsAttackSpell = UNIMPLEMENTED,
+    IsAutoRepeatSpell = UNIMPLEMENTED,
+    IsConsumableSpell = UNIMPLEMENTED,
+    IsCurrentSpell = UNIMPLEMENTED,
     IsInGroup = function()
       return state.inGroup
     end,
@@ -659,6 +675,7 @@ return function()
     IsMounted = function()
       return state.isMounted
     end,
+    IsSpellInRange = UNIMPLEMENTED,
     IsSpellKnown = function(spell)
       return state:IsSpellKnown(spell)
     end,
