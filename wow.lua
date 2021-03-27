@@ -100,9 +100,11 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     FontInstance = {
       data = {'fontObject'},
       api = {
+        GetFont = UNIMPLEMENTED,
         GetFontObject = function(self)
           return self.fontObject
         end,
+        SetFont = UNIMPLEMENTED,
         SetFontObject = function(self, fontObject)
           self.fontObject = fontObject
         end,
@@ -306,6 +308,9 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     },
     UIObject = {
       api = {
+        GetName = function(self)
+          return self._name
+        end,
         GetParent = function(self)
           return self.parent
         end,
@@ -316,7 +321,10 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   local mixins = {
     ActionButtonTemplate = function()
       return {
+        Count = CreateFrame('FontString'),
         HotKey = CreateFrame('FontString'),
+        icon = CreateFrame('Texture'),
+        Name = CreateFrame('FontString'),
       }
     end,
     CooldownFrameTemplate = function()
@@ -377,6 +385,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     end
   end
   frame.parent = parent
+  frame._name = frameName
   frame._type = className
   for _, v in ipairs(scripts) do
     frame:SetScript(v, function() end)
@@ -543,6 +552,13 @@ return function()
     format = string.format,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
     GetAddOnEnableState = UNIMPLEMENTED,
+    GetBindingByKey = function(key)
+      return state.bindings[key]
+    end,
+    GetBindingKey = UNIMPLEMENTED,
+    GetBuildInfo = function()
+      return '1.13.6', '55555', 'Jan 11 2021', 11306
+    end,
     GetClassColor = UNIMPLEMENTED,
     GetContainerItemInfo = UNIMPLEMENTED,
     GetContainerNumFreeSlots = function()
@@ -550,12 +566,6 @@ return function()
     end,
     GetContainerNumSlots = function()
       return 4
-    end,
-    GetBindingByKey = function(key)
-      return state.bindings[key]
-    end,
-    GetBuildInfo = function()
-      return '1.13.6', '55555', 'Jan 11 2021', 11306
     end,
     GetCraftInfo = function(index)
       return table.unpack(state.crafts[index])
