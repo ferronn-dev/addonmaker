@@ -3,7 +3,12 @@ from pathlib import Path
 import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
-sqlluas = [str(Path(f).with_suffix('.lua')) for f in cfg['sql']]
+
+libs = cfg['libs']
+sqls = cfg['sql']
+addon = cfg['addon']
+
+sqlluas = [str(Path(f).with_suffix('.lua')) for f in sqls]
 
 Path('/tmp/build.ninja').write_text('\n'.join([
     'rule lib',
@@ -21,7 +26,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     '',
     *[
         line
-        for lib, repo in cfg['libs'].items()
+        for lib, repo in libs.items()
         for line in [
             f'build libs/{lib} : lib',
             f'  repo = {repo}',
@@ -30,7 +35,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     ],
     *[
         line
-        for sql, tables in cfg['sql'].items()
+        for sql, tables in sqls.items()
         for line in [
             f'build {Path(sql).with_suffix(".lua")} : sql',
             f'  sql = {sql}',
@@ -38,11 +43,11 @@ Path('/tmp/build.ninja').write_text('\n'.join([
             '',
         ]
     ],
-    (f'build | {cfg["addon"]}.toc /tmp/build.dd : toc | ' +
-        ' '.join([f'libs/{lib}' for lib in cfg['libs'].keys()])),
+    (f'build | {addon}.toc /tmp/build.dd : toc | ' +
+        ' '.join([f'libs/{lib}' for lib in libs.keys()])),
     '',
-    f'build | {cfg["addon"]}.zip: ' +
-        f'zip {cfg["addon"]}.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
+    f'build | {addon}.zip: ' +
+        f'zip {addon}.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
     '  dyndep = /tmp/build.dd',
     '',
 ]))
