@@ -6,13 +6,8 @@ cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
 sqlluas = [str(Path(f).with_suffix('.lua')) for f in cfg['sql']]
 
 Path('/tmp/build.ninja').write_text('\n'.join([
-    'rule git',
-    '  command = while ! (git clone --recurse-submodules $repo $out && ' +
-        'if [ -f $out/build.yaml ]; then (cd $out && sh /addonmaker/main.sh); fi); ' +
-        'do rm -rf $out; sleep 5; done',
-    '',
-    'rule svn',
-    '  command = while ! svn checkout $repo $out; do rm -rf $out; sleep 5; done',
+    'rule lib',
+    '  command = sh /addonmaker/getlib.sh $repo $out',
     '',
     'rule sql',
     '  command = env GOOGLE_APPLICATION_CREDENTIALS=/addonmaker/creds.json ' +
@@ -28,7 +23,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
         line
         for lib, repo in cfg['libs'].items()
         for line in [
-            f'build libs/{lib} : ' + ('svn' if '/trunk' in repo else 'git'),
+            f'build libs/{lib} : lib',
             f'  repo = {repo}',
             '',
         ]
