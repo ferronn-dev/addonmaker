@@ -88,6 +88,9 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         SetText = UNIMPLEMENTED,
       },
     },
+    CheckButton = {
+      inherits = {'Button'},
+    },
     Cooldown = {
       inherits = {'Frame'},
       api = {
@@ -535,6 +538,9 @@ return function()
     end,
     GetBindingByKey = function(key)
       return state.bindings[key]
+    end,
+    GetBuildInfo = function()
+      return '1.13.6', '55555', 'Jan 11 2021', 11306
     end,
     GetCraftInfo = function(index)
       return table.unpack(state.crafts[index])
