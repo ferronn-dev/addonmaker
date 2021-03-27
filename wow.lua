@@ -68,7 +68,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
           return self.highlightTexture
         end,
         GetNormalTexture = function(self)
-          return self.normalTexture
+          return self.NormalTexture
         end,
         GetPushedTexture = function(self)
           return self.pushedTexture
@@ -80,7 +80,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         end,
         SetNormalFontObject = UNIMPLEMENTED,
         SetNormalTexture = function(self)
-          self.normalTexture = self:CreateTexture()
+          self.NormalTexture = self:CreateTexture()
         end,
         SetPushedTexture = function(self)
           self.pushedTexture = self:CreateTexture()
@@ -90,6 +90,9 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     },
     CheckButton = {
       inherits = {'Button'},
+      api = {
+        SetChecked = UNIMPLEMENTED,
+      },
     },
     Cooldown = {
       inherits = {'Frame'},
@@ -116,6 +119,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     FontString = {
       inherits = {'FontInstance', 'LayeredRegion'},
       api = {
+        GetText = UNIMPLEMENTED,
         SetText = UNIMPLEMENTED,
       },
     },
@@ -177,6 +181,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         GetItem = function(self)
           return self.item
         end,
+        GetOwner = UNIMPLEMENTED,
         GetSpell = function(self)
           return self.spell
         end,
@@ -314,6 +319,8 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         GetParent = function(self)
           return self.parent
         end,
+        -- TODO move this to ParentedObject
+        IsForbidden = UNIMPLEMENTED,
         SetAlpha = UNIMPLEMENTED,
       },
     },
@@ -321,10 +328,17 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   local mixins = {
     ActionButtonTemplate = function()
       return {
+        Border = CreateFrame('Texture'),
+        cooldown = CreateFrame('Cooldown'),
         Count = CreateFrame('FontString'),
+        FlyoutArrow = CreateFrame('Frame'),
+        FlyoutBorder = CreateFrame('Frame'),
+        FlyoutBorderShadow = CreateFrame('Frame'),
         HotKey = CreateFrame('FontString'),
         icon = CreateFrame('Texture'),
         Name = CreateFrame('FontString'),
+        SpellHighlightAnim = CreateFrame('AnimationGroup'),
+        SpellHighlightTexture = CreateFrame('Texture'),
       }
     end,
     CooldownFrameTemplate = function()
@@ -510,6 +524,7 @@ return function()
     end,
   }
   local wowapi = {
+    ATTACK_BUTTON_FLASH_TIME = 0.1,
     C_ChatInfo = {
       RegisterAddonMessagePrefix = UNIMPLEMENTED,
       SendAddonMessage = function(prefix, message, chatType, target)
