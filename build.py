@@ -13,7 +13,7 @@ if pkgmeta.exists() and not buildyaml.exists():
         'rule lib',
         '  command = sh /addonmaker/getlib.sh $repo $out',
         '',
-        *[f'build libs/{lib} : lib\n  repo = {repo}' for lib, repo in libs.items()],
+        *[f'build {lib} : lib\n  repo = {repo}' for lib, repo in libs.items()],
     ]))
     sys.exit(0)
 
