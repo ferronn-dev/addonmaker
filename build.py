@@ -1,16 +1,32 @@
 """Generates a Ninja build file from an addonmaker specification."""
+import sys
 from pathlib import Path
 import yaml
 
-cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
+buildyaml = Path('build.yaml')
+pkgmeta = Path('.pkgmeta')
 
-libs = cfg['libs']
-sqls = cfg['sql']
+if pkgmeta.exists() and not buildyaml.exists():
+    cfg = yaml.load(pkgmeta.read_text(), Loader=yaml.Loader)
+    libs = cfg['externals'] if 'externals' in cfg else {}
+    print('\n'.join([
+        'rule lib',
+        '  command = sh /addonmaker/getlib.sh $repo $out',
+        '',
+        *[f'build libs/{lib} : lib\n  repo = {repo}' for lib, repo in libs.items()],
+    ]))
+    sys.exit(0)
+
+if not buildyaml.exists():
+    raise Exception('missing build.yaml or .pkgmeta')
+
+cfg = yaml.load(buildyaml.read_text(), Loader=yaml.Loader)
+libs = cfg['libs'] if 'libs' in cfg else {}
+sqls = cfg['sql'] if 'sql' in cfg else {}
 addon = cfg['addon']
-
 sqlluas = [str(Path(f).with_suffix('.lua')) for f in sqls]
 
-Path('/tmp/build.ninja').write_text('\n'.join([
+print('\n'.join([
     'rule lib',
     '  command = sh /addonmaker/getlib.sh $repo $out',
     '',
@@ -24,15 +40,7 @@ Path('/tmp/build.ninja').write_text('\n'.join([
     'rule zip',
     '  command = bash /addonmaker/runtests.sh && python3 /addonmaker/genzip.py $in',
     '',
-    *[
-        line
-        for lib, repo in libs.items()
-        for line in [
-            f'build libs/{lib} : lib',
-            f'  repo = {repo}',
-            '',
-        ]
-    ],
+    *[f'build libs/{lib} : lib\n  repo = {repo}' for lib, repo in libs.items()],
     *[
         line
         for sql, tables in sqls.items()

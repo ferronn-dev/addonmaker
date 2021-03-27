@@ -8,7 +8,7 @@ fetch() (
   else
     git clone --recurse-submodules "$repo" "$out"
   fi
-  if [ -f "$out/build.yaml" ]
+  if [ -f "$out/build.yaml" -o -f "$out/.pkgmeta" ]
   then
     (cd "$out" && sh /addonmaker/main.sh)
   fi
