@@ -314,30 +314,44 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     },
   }
   local mixins = {
-    ActionButtonTemplate = {},
-    CooldownFrameTemplate = {},
-    GameTooltipTemplate = {},
-    SecureActionButtonTemplate = {
-      OnClick = function(self)
-        local ty = self:GetAttribute('type')
-        if ty == 'macro' then
-          table.insert(state.commands, {
-            macro = self:GetAttribute('macrotext'),
-          })
-        elseif ty == 'spell' then
-          table.insert(state.commands, {
-            spell = self:GetAttribute('spell'),
-            unit = self:GetAttribute('unit'),
-          })
-        end
-      end,
-    },
-    SecureHandlerStateTemplate = {
-      Execute = UNIMPLEMENTED,
-      SetFrameRef = UNIMPLEMENTED,
-      WrapScript = UNIMPLEMENTED,
-    },
-    SecureUnitButtonTemplate = {},
+    ActionButtonTemplate = function()
+      return {
+        HotKey = CreateFrame('FontString'),
+      }
+    end,
+    CooldownFrameTemplate = function()
+      return {}
+    end,
+    GameTooltipTemplate = function()
+      return {}
+    end,
+    SecureActionButtonTemplate = function()
+      return {
+        OnClick = function(self)
+          local ty = self:GetAttribute('type')
+          if ty == 'macro' then
+            table.insert(state.commands, {
+              macro = self:GetAttribute('macrotext'),
+            })
+          elseif ty == 'spell' then
+            table.insert(state.commands, {
+              spell = self:GetAttribute('spell'),
+              unit = self:GetAttribute('unit'),
+            })
+          end
+        end,
+      }
+    end,
+    SecureHandlerStateTemplate = function()
+      return {
+        Execute = UNIMPLEMENTED,
+        SetFrameRef = UNIMPLEMENTED,
+        WrapScript = UNIMPLEMENTED,
+      }
+    end,
+    SecureUnitButtonTemplate = function()
+      return {}
+    end,
   }
   local toProcess = {className}
   local classes = {}
@@ -369,7 +383,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   end
   for t in string.gmatch(templates or '', '[^, ]+') do
     assert(mixins[t] ~= nil, 'unknown mixin ' .. t)
-    for k, v in pairs(mixins[t]) do
+    for k, v in pairs(mixins[t]()) do
       if k == 'OnClick' then
         frame:SetScript(k, v)
       else
