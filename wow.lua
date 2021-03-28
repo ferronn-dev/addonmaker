@@ -151,6 +151,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         SetBackdrop = UNIMPLEMENTED,
         SetBackdropBorderColor = UNIMPLEMENTED,
         SetBackdropColor = UNIMPLEMENTED,
+        SetClampedToScreen = UNIMPLEMENTED,
         SetClampRectInsets = UNIMPLEMENTED,
         SetFrameLevel = UNIMPLEMENTED,
         SetFrameStrata = UNIMPLEMENTED,
@@ -346,11 +347,12 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         SpellHighlightTexture = CreateFrame('Texture'),
       }
     end,
-    CooldownFrameTemplate = function()
-      return {}
-    end,
-    GameTooltipTemplate = function()
-      return {}
+    CooldownFrameTemplate = UNIMPLEMENTED,
+    GameTooltipTemplate = UNIMPLEMENTED,
+    OptionsCheckButtonTemplate = function(self)
+      return {
+        Text = CreateFrame('FontString', self:GetName() .. 'Text')
+      }
     end,
     SecureActionButtonTemplate = function()
       return {
@@ -376,9 +378,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
         WrapScript = UNIMPLEMENTED,
       }
     end,
-    SecureUnitButtonTemplate = function()
-      return {}
-    end,
+    SecureUnitButtonTemplate = UNIMPLEMENTED,
   }
   local toProcess = {className}
   local classes = {}
@@ -411,7 +411,7 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
   end
   for t in string.gmatch(templates or '', '[^, ]+') do
     assert(mixins[t] ~= nil, 'unknown mixin ' .. t)
-    for k, v in pairs(mixins[t]()) do
+    for k, v in pairs(mixins[t](frame) or {}) do
       if k == 'OnClick' then
         frame:SetScript(k, v)
       else
@@ -584,6 +584,9 @@ return function()
       return state.bindings[key]
     end,
     GetBindingKey = UNIMPLEMENTED,
+    GetBindingText = function()
+      return ''
+    end,
     GetBuildInfo = function()
       return '1.13.6', '55555', 'Jan 11 2021', 11306
     end,
@@ -685,6 +688,7 @@ return function()
       return state.instanceId ~= nil
     end,
     IsItemAction = UNIMPLEMENTED,
+    IsLoggedIn = UNIMPLEMENTED,
     IsMounted = function()
       return state.isMounted
     end,
