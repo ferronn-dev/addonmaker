@@ -12,9 +12,13 @@ return function(before)
   for line in io.lines(tocs[1]) do
     line = line:sub(1, -2)
     if line:sub(1, 2) ~= '##' then
-      local f = assert(io.open(line, "r"))
-      table.insert(files, { name = line, content = f:read('*all') })
+      local f = assert(io.open(line, "rb"))
+      local content = f:read('*all')
       f:close()
+      if content:sub(1, 3) == '\239\187\191' then
+        content = content:sub(4)
+      end
+      table.insert(files, { name = line, content = content })
     end
   end
   local api, state = wowapi()
