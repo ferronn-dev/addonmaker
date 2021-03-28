@@ -21,11 +21,11 @@ return function(before)
       table.insert(files, { name = line, content = content })
     end
   end
-  local api, state = wowapi()
+  local env = {}
+  local api, state = wowapi(env)
   if before then
     before(state)
   end
-  local env = {}
   for k, v in pairs(_G) do
     env[k] = v
   end

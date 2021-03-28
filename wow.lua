@@ -24,9 +24,9 @@ local unitClasses = {
   { 'Druid', 'DRUID' },
 }
 
-local function CreateFrameImpl(state, className, frameName, parent, templates)
+local function CreateFrameImpl(env, state, className, frameName, parent, templates)
   local CreateFrame = function(...)
-    return CreateFrameImpl(state, ...)
+    return CreateFrameImpl(env, state, ...)
   end
   local hierarchy = {
     Alpha = {
@@ -423,15 +423,16 @@ local function CreateFrameImpl(state, className, frameName, parent, templates)
     table.insert(state.frames, frame)
   end
   if frameName then
+    env[frameName] = frame
     state.frames[frameName] = frame
   end
   return frame
 end
 
-return function()
+return function(env)
   local state
   local CreateFrame = function(...)
-    return CreateFrameImpl(state, ...)
+    return CreateFrameImpl(env, state, ...)
   end
   state = {
     bindings = {},
