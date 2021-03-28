@@ -163,6 +163,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetToplevel = UNIMPLEMENTED,
         SetUserPlaced = UNIMPLEMENTED,
         UnregisterAllEvents = UNIMPLEMENTED,
+        UnregisterEvent = UNIMPLEMENTED,
       },
     },
     GameTooltip = {
@@ -349,6 +350,11 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     end,
     CooldownFrameTemplate = UNIMPLEMENTED,
     GameTooltipTemplate = UNIMPLEMENTED,
+    OptionsButtonTemplate = function(self)
+      return {
+        Text = CreateFrame('FontString', self:GetName() .. 'Text')
+      }
+    end,
     OptionsCheckButtonTemplate = function(self)
       return {
         Text = CreateFrame('FontString', self:GetName() .. 'Text')
@@ -604,6 +610,9 @@ return function(env)
     end,
     GetFramerate = function()
       return 100
+    end,
+    getglobal = function(k)
+      return env[k]
     end,
     GetInstanceInfo = function()
       return nil, nil, nil, nil, nil, nil, nil, state.instanceId
