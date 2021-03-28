@@ -573,6 +573,12 @@ return function()
     FindSpellBookSlotBySpellID = UNIMPLEMENTED,
     format = string.format,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
+    GetActionCount = function()
+      return 0
+    end,
+    GetActionInfo = UNIMPLEMENTED,
+    GetActionText = UNIMPLEMENTED,
+    GetActionTexture = UNIMPLEMENTED,
     GetAddOnEnableState = UNIMPLEMENTED,
     GetBindingByKey = function(key)
       return state.bindings[key]
@@ -611,6 +617,7 @@ return function()
       return state.inventory[item] or 0
     end,
     GetLocale = UNIMPLEMENTED,
+    GetMacroInfo = UNIMPLEMENTED,
     GetMoney = UNIMPLEMENTED,
     GetNumCrafts = function()
       return #state.crafts
@@ -656,6 +663,7 @@ return function()
       return state.localTime
     end,
     GetTrackingTexture = UNIMPLEMENTED,
+    HasAction = UNIMPLEMENTED,
     hooksecurefunc = UNIMPLEMENTED,
     InCombatLockdown = function()
       return state.inCombat
@@ -663,15 +671,20 @@ return function()
     InterfaceOptions_AddCategory = UNIMPLEMENTED,
     InterfaceOptionsFrame_OpenToCategory = UNIMPLEMENTED,
     IsAttackSpell = UNIMPLEMENTED,
+    IsAutoRepeatAction = UNIMPLEMENTED,
     IsAutoRepeatSpell = UNIMPLEMENTED,
+    IsConsumableAction = UNIMPLEMENTED,
     IsConsumableSpell = UNIMPLEMENTED,
+    IsCurrentAction = UNIMPLEMENTED,
     IsCurrentSpell = UNIMPLEMENTED,
+    IsEquippedAction = UNIMPLEMENTED,
     IsInGroup = function()
       return state.inGroup
     end,
     IsInInstance = function()
       return state.instanceId ~= nil
     end,
+    IsItemAction = UNIMPLEMENTED,
     IsMounted = function()
       return state.isMounted
     end,
@@ -679,6 +692,7 @@ return function()
     IsSpellKnown = function(spell)
       return state:IsSpellKnown(spell)
     end,
+    IsStackableAction = UNIMPLEMENTED,
     IsUsableSpell = function(spell)
       return state:IsSpellKnown(spell), false
     end,
