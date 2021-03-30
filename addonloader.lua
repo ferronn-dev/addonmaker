@@ -10,8 +10,8 @@ return function(before)
   assert(#tocs == 1, 'expecting exactly one toc file')
   local files = {}
   for line in io.lines(tocs[1]) do
-    line = line:sub(1, -2)
-    if line:sub(1, 2) ~= '##' then
+    line = line:match('^%s*(.-)%s*$'):gsub('\\', '/')
+    if line ~= '' and line:sub(1, 2) ~= '##' then
       local f = assert(io.open(line, "rb"))
       local content = f:read('*all')
       f:close()
