@@ -1,2 +1,2 @@
 # addonmaker
-A build and test harness for WoW addons
+A build and test harness for WoW addons.
