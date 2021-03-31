@@ -1,0 +1,17 @@
+---
+name: dev
+on:
+  push:
+    branches: [dev]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and push
+      uses: docker/build-push-action@v2
+    - name: Merge
+      uses: mtanzi/action-automerge@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        source: dev
+        target: main
