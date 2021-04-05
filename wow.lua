@@ -564,6 +564,7 @@ return function(env)
       end,
     },
     C_Timer = {
+      After = UNIMPLEMENTED,
       NewTicker = function(interval, func)
         table.insert(state.tickers, {
           interval = interval,
