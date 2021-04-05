@@ -581,6 +581,7 @@ return function(env)
     end,
     ERR_LEARN_SPELL_S = 'You have learned a new spell: %s.',
     FindSpellBookSlotBySpellID = UNIMPLEMENTED,
+    FollowUnit = UNIMPLEMENTED,
     format = string.format,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
     GetActionCount = function()
