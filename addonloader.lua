@@ -32,11 +32,12 @@ return function(before)
   for k, v in pairs(api) do
     env[k] = v
   end
+  env.table.unpack = nil
   env['_G'] = env
   env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
   local addon = {}
   for _, file in ipairs(files) do
-    assert(load(file.content, file.name, 't', env))('moo', addon)
+    assert(setfenv(loadstring(file.content), env))('moo', addon)
   end
   return state, env, addon
 end

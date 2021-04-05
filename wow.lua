@@ -1,5 +1,7 @@
 local UNIMPLEMENTED = function() end
 
+local unpack = unpack or table.unpack
+
 local function RunScript(widget, name, ...)
   local script = widget.scripts[name]
   if script then
@@ -606,7 +608,7 @@ return function(env)
       return 4
     end,
     GetCraftInfo = function(index)
-      return table.unpack(state.crafts[index])
+      return unpack(state.crafts[index])
     end,
     GetFramerate = function()
       return 100
@@ -759,7 +761,7 @@ return function(env)
         local pos = string.find(s, sep)
         if not pos then
           table.insert(result, s)
-          return table.unpack(result)
+          return unpack(result)
         end
         table.insert(result, s:sub(0, pos - 1))
         s = s:sub(pos + 1)
@@ -774,12 +776,12 @@ return function(env)
     end,
     UnitClass = function(unit)
       assert(unit == 'player')
-      local name, filename = table.unpack(unitClasses[state.player.class])
+      local name, filename = unpack(unitClasses[state.player.class])
       return name, filename, state.player.class
     end,
     UnitClassBase = function(unit)
       assert(unit == 'player')
-      local _, filename = table.unpack(unitClasses[state.player.class])
+      local _, filename = unpack(unitClasses[state.player.class])
       return filename, state.player.class
     end,
     UnitDebuff = UNIMPLEMENTED,
@@ -818,7 +820,7 @@ return function(env)
     end,
     UnitXP = UNIMPLEMENTED,
     UnitXPMax = UNIMPLEMENTED,
-    unpack = table.unpack,
+    unpack = unpack,
     wipe = function(t)
       for k, _ in pairs(t) do
         t[k] = nil
