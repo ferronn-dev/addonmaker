@@ -63,6 +63,7 @@ read_globals = {
   'Minimap',
   'MinimapBackdrop',
   'MinimapCluster',
+  'Mixin',
   'NUM_BAG_SLOTS',
   'NumberFont_Small',
   'PlayerFrame',

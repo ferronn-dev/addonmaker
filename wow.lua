@@ -719,6 +719,13 @@ return function(env)
     Minimap = CreateFrame('Minimap'),
     MinimapBackdrop = CreateFrame('Frame'),
     MinimapCluster = CreateFrame('Frame'),
+    Mixin = function(obj, ...)
+      for _, t in ipairs({...}) do
+        for k, v in pairs(t) do
+          obj[k] = v
+        end
+      end
+    end,
     NUM_BAG_SLOTS = 4,
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
