@@ -45,6 +45,7 @@ read_globals = {
   'GetSpellCooldown',
   'GetSpellInfo',
   'GetSpellSubtext',
+  'GetSpellTexture',
   'GetTalentInfo',
   'GetTime',
   'GetTrackingTexture',
