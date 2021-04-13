@@ -628,11 +628,13 @@ return function(env)
       return state.equipment[i]
     end,
     GetItemCooldown = function()
-      return 0
+      return 0, 0, 0
     end,
     GetItemCount = function(item)
       return state.inventory[item] or 0
     end,
+    GetItemIcon = UNIMPLEMENTED,
+    GetItemInfo = UNIMPLEMENTED,
     GetLocale = UNIMPLEMENTED,
     GetMacroInfo = UNIMPLEMENTED,
     GetMoney = UNIMPLEMENTED,
@@ -691,6 +693,7 @@ return function(env)
     IsAutoRepeatAction = UNIMPLEMENTED,
     IsAutoRepeatSpell = UNIMPLEMENTED,
     IsConsumableAction = UNIMPLEMENTED,
+    IsConsumableItem = UNIMPLEMENTED,
     IsConsumableSpell = UNIMPLEMENTED,
     IsCurrentAction = UNIMPLEMENTED,
     IsCurrentItem = UNIMPLEMENTED,
