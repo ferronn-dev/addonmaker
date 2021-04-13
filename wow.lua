@@ -693,6 +693,7 @@ return function(env)
     IsConsumableAction = UNIMPLEMENTED,
     IsConsumableSpell = UNIMPLEMENTED,
     IsCurrentAction = UNIMPLEMENTED,
+    IsCurrentItem = UNIMPLEMENTED,
     IsCurrentSpell = UNIMPLEMENTED,
     IsEquippedAction = UNIMPLEMENTED,
     IsInGroup = function()
@@ -711,6 +712,7 @@ return function(env)
       return state:IsSpellKnown(spell)
     end,
     IsStackableAction = UNIMPLEMENTED,
+    IsUsableItem = UNIMPLEMENTED,
     IsUsableSpell = function(spell)
       return state:IsSpellKnown(spell), false
     end,
