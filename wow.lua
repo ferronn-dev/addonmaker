@@ -736,6 +736,7 @@ return function(env)
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
     RaidFrame = CreateFrame('Frame'),
     RegisterAttributeDriver = UNIMPLEMENTED,
+    RegisterStateDriver = UNIMPLEMENTED,
     RegisterUnitWatch = UNIMPLEMENTED,
     SetBinding = function(key, command)
       state.bindings[key] = command
@@ -766,6 +767,7 @@ return function(env)
     ShoppingTooltip2 = CreateFrame('GameTooltip'),
     ShoppingTooltip3 = CreateFrame('GameTooltip'),
     SlashCmdList = {},
+    SpellHasRange = UNIMPLEMENTED,
     StaticPopupDialogs = {},
     strmatch = string.match,
     strsplit = function(sep, s, n)
