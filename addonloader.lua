@@ -1,6 +1,6 @@
 local lfs = require('lfs')
 local wowapi = require('wow')
-return function(before)
+local files = (function()
   local tocs = {}
   for file in lfs.dir('.') do
     if file:find('%.toc$') then
@@ -18,9 +18,12 @@ return function(before)
       if content:sub(1, 3) == '\239\187\191' then
         content = content:sub(4)
       end
-      table.insert(files, { name = line, content = content })
+      table.insert(files, assert(loadstring(content)))
     end
   end
+  return files
+end)()
+return function(before)
   local env = {}
   local api, state = wowapi(env)
   if before then
@@ -37,7 +40,7 @@ return function(before)
   env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
   local addon = {}
   for _, file in ipairs(files) do
-    assert(setfenv(loadstring(file.content), env))('moo', addon)
+    setfenv(file, env)('moo', addon)
   end
   return state, env, addon
 end
