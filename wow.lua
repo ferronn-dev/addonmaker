@@ -65,6 +65,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           RunScript(self, 'OnClick', ...)
           RunScript(self, 'PostClick', ...)
         end,
+        Disable = UNIMPLEMENTED,
         Enable = UNIMPLEMENTED,
         GetHighlightTexture = function(self)
           return self.highlightTexture
