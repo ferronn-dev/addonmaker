@@ -622,6 +622,9 @@ return function(env)
     GetInstanceInfo = function()
       return nil, nil, nil, nil, nil, nil, nil, state.instanceId
     end,
+    GetInventoryItemCooldown = function()
+      return 0, 0, 0
+    end,
     GetInventoryItemDurability = UNIMPLEMENTED,
     GetInventoryItemID = UNIMPLEMENTED,
     GetInventoryItemLink = function(unit, i)
