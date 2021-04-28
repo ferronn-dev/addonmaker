@@ -103,6 +103,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       api = {
         SetDrawBling = UNIMPLEMENTED,
         SetReverse = UNIMPLEMENTED,
+        SetSwipeColor = UNIMPLEMENTED,
       }
     },
     FontInstance = {
