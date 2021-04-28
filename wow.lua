@@ -77,6 +77,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           return self.pushedTexture
         end,
         RegisterForClicks = UNIMPLEMENTED,
+        SetEnabled = UNIMPLEMENTED,
         SetHighlightFontObject = UNIMPLEMENTED,
         SetHighlightTexture = function(self)
           self.highlightTexture = self:CreateTexture()
@@ -639,6 +640,7 @@ return function(env)
     end,
     GetItemIcon = UNIMPLEMENTED,
     GetItemInfo = UNIMPLEMENTED,
+    GetItemSpell = UNIMPLEMENTED,
     GetLocale = UNIMPLEMENTED,
     GetMacroInfo = UNIMPLEMENTED,
     GetMoney = UNIMPLEMENTED,
