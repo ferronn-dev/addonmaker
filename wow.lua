@@ -82,6 +82,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetHighlightTexture = function(self)
           self.highlightTexture = self:CreateTexture()
         end,
+        SetMotionScriptsWhileDisabled = UNIMPLEMENTED,
         SetNormalFontObject = UNIMPLEMENTED,
         SetNormalTexture = function(self)
           self.NormalTexture = self:CreateTexture()
