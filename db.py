@@ -35,6 +35,8 @@ def maybe_dict(value):
             k: (v[0] if len(v) == 1 and is_scalar(v[0]) else v)
             for k, v in value
         }
+    if len(value) == 1 and is_scalar(value[0]):
+        return value[0]
     return value
 
 def dunno(data):
