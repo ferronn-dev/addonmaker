@@ -6,4 +6,4 @@ compgen -G "*test.lua" | while read test; do
   echo "******** $test *******"
   lua $test
 done
-compgen -G "*_spec.lua" | xargs -r busted --helper=/addonmaker/helper.lua
+compgen -G "*_spec.lua" | xargs -r busted -v --helper=/addonmaker/helper.lua
