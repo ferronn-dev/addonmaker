@@ -580,6 +580,7 @@ return function(env)
     CooldownFrame_Set = UNIMPLEMENTED,
     CreateFrame = CreateFrame,
     DisableAddOn = UNIMPLEMENTED,
+    DoEmote = UNIMPLEMENTED,
     EquipItemByName = function(item, slot)
       state.equipment[slot] = item
     end,
