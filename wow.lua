@@ -724,6 +724,7 @@ return function(env)
     IsMounted = function()
       return state.isMounted
     end,
+    IsShiftKeyDown = UNIMPLEMENTED,
     IsSpellInRange = UNIMPLEMENTED,
     IsSpellKnown = function(spell)
       return state:IsSpellKnown(spell)
