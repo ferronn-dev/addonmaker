@@ -533,12 +533,12 @@ return function(env)
       return false
     end,
     EnterCombat = function(self)
-      self.inCombat = true
       self:SendEvent('PLAYER_REGEN_DISABLED')
+      self.inCombat = true
     end,
     LeaveCombat = function(self)
-      self:SendEvent('PLAYER_REGEN_ENABLED')
       self.inCombat = false
+      self:SendEvent('PLAYER_REGEN_ENABLED')
     end,
   }
   local wowapi = {
