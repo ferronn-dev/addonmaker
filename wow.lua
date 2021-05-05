@@ -588,6 +588,8 @@ return function(env)
     FollowUnit = UNIMPLEMENTED,
     format = string.format,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
+    GameTooltip_SetDefaultAnchor = UNIMPLEMENTED,
+    GameTooltipTextRight1 = CreateFrame('FontString'),
     GetActionCount = function()
       return 0
     end,
@@ -646,6 +648,7 @@ return function(env)
     GetLocale = UNIMPLEMENTED,
     GetMacroInfo = UNIMPLEMENTED,
     GetMoney = UNIMPLEMENTED,
+    GetMouseFocus = UNIMPLEMENTED,
     GetNumCrafts = function()
       return #state.crafts
     end,
@@ -690,6 +693,9 @@ return function(env)
       return state.localTime
     end,
     GetTrackingTexture = UNIMPLEMENTED,
+    GetUnitSpeed = function()
+      return 0
+    end,
     HasAction = UNIMPLEMENTED,
     hooksecurefunc = UNIMPLEMENTED,
     InCombatLockdown = function()
@@ -732,6 +738,8 @@ return function(env)
     Minimap = CreateFrame('Minimap'),
     MinimapBackdrop = CreateFrame('Frame'),
     MinimapCluster = CreateFrame('Frame'),
+    MiniMapTrackingFrame = CreateFrame('Frame'),
+    MiniMapTrackingIcon = CreateFrame('Texture'),
     Mixin = function(obj, ...)
       for _, t in ipairs({...}) do
         for k, v in pairs(t) do
@@ -746,6 +754,7 @@ return function(env)
     RegisterAttributeDriver = UNIMPLEMENTED,
     RegisterStateDriver = UNIMPLEMENTED,
     RegisterUnitWatch = UNIMPLEMENTED,
+    ReloadUI = UNIMPLEMENTED,
     SetBinding = function(key, command)
       state.bindings[key] = command
       return true
@@ -771,12 +780,14 @@ return function(env)
     end,
     SetRaidProfileOption = UNIMPLEMENTED,
     SetRaidProfileSavedPosition = UNIMPLEMENTED,
+    SetTooltipMoney = UNIMPLEMENTED,
     ShoppingTooltip1 = CreateFrame('GameTooltip'),
     ShoppingTooltip2 = CreateFrame('GameTooltip'),
     ShoppingTooltip3 = CreateFrame('GameTooltip'),
     SlashCmdList = {},
     SpellHasRange = UNIMPLEMENTED,
     StaticPopupDialogs = {},
+    StaticPopup_Show = UNIMPLEMENTED,
     strmatch = string.match,
     strsplit = function(sep, s, n)
       assert(n == nil)
@@ -793,6 +804,8 @@ return function(env)
     end,
     TargetFrame = CreateFrame('Button'),
     TimeManagerClockButton = CreateFrame('Frame'),
+    UIParent = CreateFrame('Frame'),
+    UnitAura = UNIMPLEMENTED,
     UnitBuff = function(unit, index)
       if unit == 'player' then
         return nil, nil, nil, nil, nil, nil, nil, nil, nil, state.buffs[index]
