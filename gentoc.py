@@ -5,6 +5,7 @@ from toposort import toposort_flatten
 import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
+cfg['toc']['Interface'] = 11307  # force WoW classic version
 
 libfiles = [
     f'libs/{lib}/{luafile}'
