@@ -1,6 +1,0 @@
-google-cloud-bigquery
-lxml
-pygtrie
-pylint
-pyyaml
-toposort
