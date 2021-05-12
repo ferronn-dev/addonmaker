@@ -5,7 +5,6 @@ from toposort import toposort_flatten
 import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
-cfg['toc']['Interface'] = 11307  # force WoW classic version
 
 libfiles = [
     f'libs/{lib}/{luafile}'
@@ -32,7 +31,8 @@ files = libfiles + toposort_flatten({
 })
 
 Path(f'{cfg["addon"]}.toc').write_text('\r\n'.join([
-    *[f'## {k}: {v}' for k, v in cfg['toc'].items()],
+    '## Interface: 11307',
+    *[f'## {k}: {v}' for k, v in cfg['toc'].items() if k != 'Interface'],
     *files,
     '',
 ]))
