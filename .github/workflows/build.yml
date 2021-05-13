@@ -5,14 +5,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ferronn-dev
-        password: ${{ secrets.CR_PAT }}
+    - name: Checkout code
+      uses: actions/checkout@v2
     - name: Build and push
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v1
       with:
-        push: true
-        tags: ghcr.io/ferronn-dev/addonmaker:latest
+        password: ${{ secrets.CR_PAT }}
+        registry: ghcr.io
+        repository: ferronn-dev/addonmaker
+        tags: latest
+        tag_with_sha: true
+        username: ferronn-dev
