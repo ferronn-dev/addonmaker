@@ -1,4 +1,4 @@
-FROM python
+FROM python:3.7.10-buster
 WORKDIR /addonmaker
 COPY packages.txt .
 RUN apt-get update && apt-get -y install `cat packages.txt` && apt-get clean
