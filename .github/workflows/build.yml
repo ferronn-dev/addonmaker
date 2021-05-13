@@ -14,5 +14,4 @@ jobs:
         registry: ghcr.io
         repository: ferronn-dev/addonmaker
         tags: latest
-        tag_with_sha: true
         username: ferronn-dev
