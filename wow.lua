@@ -552,6 +552,8 @@ return function()
     end,
   }
   local wowapi = {
+    ANCHOR_BOTTOMLEFT = 'ANCHOR_BOTTOMLEFT',
+    ANCHOR_NONE = 'ANCHOR_NONE',
     ATTACK_BUTTON_FLASH_TIME = 0.1,
     C_ChatInfo = {
       RegisterAddonMessagePrefix = UNIMPLEMENTED,
@@ -753,6 +755,7 @@ return function()
     MiniMapTrackingFrame = CreateFrame('Frame'),
     MiniMapTrackingIcon = CreateFrame('Texture'),
     Mixin = Mixin,
+    NumberFont_Small = CreateFrame('FontInstance'),
     NUM_BAG_SLOTS = 4,
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
