@@ -5,7 +5,7 @@ from toposort import toposort_flatten
 import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
-if cfg['toc']['Interface']:
+if 'Interface' in cfg['toc']:
     raise Exception('do not specify Interface in build.yaml toc')
 
 libfiles = [
