@@ -5,6 +5,8 @@ from toposort import toposort_flatten
 import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
+if cfg['toc']['Interface']:
+  raise Exception('do not specify Interface in build.yaml toc')
 
 libfiles = [
     f'libs/{lib}/{luafile}'
@@ -32,7 +34,7 @@ files = libfiles + toposort_flatten({
 
 Path(f'{cfg["addon"]}.toc').write_text('\r\n'.join([
     '## Interface: 11307',
-    *[f'## {k}: {v}' for k, v in cfg['toc'].items() if k != 'Interface'],
+    *[f'## {k}: {v}' for k, v in cfg['toc'].items()],
     *files,
     '',
 ]))
