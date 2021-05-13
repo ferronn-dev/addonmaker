@@ -7,13 +7,9 @@ inputs:
   github_token:
     description: GITHUB_TOKEN, if command is release
     required: false
-  version:
-    default: 'latest'
-    description: docker tag to use
-    required: false
 runs:
   using: docker
-  image: docker://ghcr.io/ferronn-dev/addonmaker:${{ inputs.version }}
+  image: docker://ghcr.io/ferronn-dev/addonmaker:latest
   args:
   - ${{ inputs.command }}
   - ${{ inputs.github_token }}
