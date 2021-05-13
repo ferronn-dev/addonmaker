@@ -24,15 +24,11 @@ local files = (function()
   return files
 end)()
 return function(before)
-  local env = {}
-  local api, state = wowapi(env)
+  local env, state = wowapi()
   if before then
     before(state)
   end
   for k, v in pairs(_G) do
-    env[k] = v
-  end
-  for k, v in pairs(api) do
     env[k] = v
   end
   env.table.unpack = nil

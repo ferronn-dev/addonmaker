@@ -2,6 +2,15 @@ local UNIMPLEMENTED = function() end
 
 local unpack = unpack or table.unpack
 
+local function Mixin(obj, ...)
+  for _, t in ipairs({...}) do
+    for k, v in pairs(t) do
+      obj[k] = v
+    end
+  end
+  return obj
+end
+
 local function RunScript(widget, name, ...)
   local script = widget.scripts[name]
   if script then
@@ -441,7 +450,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
   return frame
 end
 
-return function(env)
+return function()
+  local env = {}
   local state
   local CreateFrame = function(...)
     return CreateFrameImpl(env, state, ...)
@@ -742,13 +752,7 @@ return function(env)
     MinimapCluster = CreateFrame('Frame'),
     MiniMapTrackingFrame = CreateFrame('Frame'),
     MiniMapTrackingIcon = CreateFrame('Texture'),
-    Mixin = function(obj, ...)
-      for _, t in ipairs({...}) do
-        for k, v in pairs(t) do
-          obj[k] = v
-        end
-      end
-    end,
+    Mixin = Mixin,
     NUM_BAG_SLOTS = 4,
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
@@ -869,5 +873,5 @@ return function(env)
     WOW_PROJECT_ID = 2,
     WOW_PROJECT_MAINLINE = 1,
   }
-  return wowapi, state
+  return Mixin(env, wowapi), state
 end
