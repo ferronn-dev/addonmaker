@@ -9,7 +9,7 @@ inputs:
     required: false
 runs:
   using: docker
-  image: docker://ghcr.io/ferronn-dev/addonmaker:latest
+  image: Dockerfile
   args:
   - ${{ inputs.command }}
   - ${{ inputs.github_token }}
