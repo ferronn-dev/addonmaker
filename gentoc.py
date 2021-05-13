@@ -6,7 +6,7 @@ import yaml
 
 cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
 if cfg['toc']['Interface']:
-  raise Exception('do not specify Interface in build.yaml toc')
+    raise Exception('do not specify Interface in build.yaml toc')
 
 libfiles = [
     f'libs/{lib}/{luafile}'
