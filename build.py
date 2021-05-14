@@ -32,7 +32,7 @@ print('\n'.join([
     '',
     'rule sql',
     '  command = env GOOGLE_APPLICATION_CREDENTIALS=/addonmaker/creds.json ' +
-        'python3 /addonmaker/db.py $sql $tables',
+        'python3 /addonmaker/db.py $in $tables',
     '',
     'rule toc',
     '  command = python3 /addonmaker/gentoc.py',
@@ -45,8 +45,7 @@ print('\n'.join([
         line
         for sql, tables in sqls.items()
         for line in [
-            f'build {Path(sql).with_suffix(".lua")} : sql',
-            f'  sql = {sql}',
+            f'build {Path(sql).with_suffix(".lua")} : sql {sql}',
             f'  tables = {" ".join(tables)}',
             '',
         ]
