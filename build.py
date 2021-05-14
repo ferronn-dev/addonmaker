@@ -38,7 +38,7 @@ print('\n'.join([
     '  command = python3 /addonmaker/gentoc.py',
     '',
     'rule zip',
-    '  command = bash /addonmaker/runtests.sh && python3 /addonmaker/genzip.py $in',
+    f'  command = bash /addonmaker/runtests.sh && python3 /addonmaker/genzip.py {addon} $in',
     '',
     *[f'build libs/{lib} : lib\n  repo = {repo}' for lib, repo in libs.items()],
     *[
@@ -51,11 +51,11 @@ print('\n'.join([
             '',
         ]
     ],
-    (f'build | {addon}.toc /tmp/build.dd : toc | ' +
+    (f'build {addon}-Classic.toc | /tmp/build.dd : toc | ' +
         ' '.join([f'libs/{lib}' for lib in libs.keys()])),
     '',
-    f'build | {addon}.zip: ' +
-        f'zip {addon}.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
+    f'build {addon}.zip: ' +
+        f'zip {addon}-Classic.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
     '  dyndep = /tmp/build.dd',
     '',
 ]))
