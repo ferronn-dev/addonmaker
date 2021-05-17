@@ -264,9 +264,12 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetAlpha = UNIMPLEMENTED,
         SetHeight = function(self, value)
           self.height = value
-        end ,
+        end,
         SetParent = UNIMPLEMENTED,
         SetPoint = UNIMPLEMENTED,
+        SetShown = function(self, value)
+          if value then self:Show() else self:Hide() end
+        end,
         SetSize = UNIMPLEMENTED,
         SetWidth = UNIMPLEMENTED,
         Show = function(self, ...)
