@@ -652,6 +652,7 @@ return function()
       assert(unit == 'player')
       return state.equipment[i]
     end,
+    GetInventoryItemTexture = UNIMPLEMENTED,
     GetItemCooldown = function()
       return 0, 0, 0
     end,
