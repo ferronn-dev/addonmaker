@@ -8,6 +8,15 @@ cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
 if 'Interface' in cfg['toc']:
     raise Exception('do not specify Interface in build.yaml toc')
 
+nos = {
+  'BCC': 20501,
+  'Classic': 11307,
+  'Mainline': 90005,
+}
+for v in cfg['versions']:
+    if v not in nos:
+        raise Exception('bad version')
+
 libfiles = [
     f'libs/{lib}/{luafile}'
     for lib in cfg['libs']
@@ -32,12 +41,13 @@ files = libfiles + toposort_flatten({
     }.items()
 })
 
-Path(f'{cfg["addon"]}-Classic.toc').write_text('\r\n'.join([
-    '## Interface: 11307',
-    *[f'## {k}: {v}' for k, v in cfg['toc'].items()],
-    *files,
-    '',
-]))
+for v in cfg['versions']:
+    Path(f'{cfg["addon"]}-{v}.toc').write_text('\r\n'.join([
+        f'## Interface: {nos[v]}',
+        *[f'## {k}: {v}' for k, v in cfg['toc'].items()],
+        *files,
+        '',
+    ]))
 
 Path('/tmp/build.dd').write_text('\n'.join([
     'ninja_dyndep_version = 1',

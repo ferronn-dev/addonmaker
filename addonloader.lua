@@ -3,7 +3,7 @@ local wowapi = require('wow')
 local files = (function()
   local tocs = {}
   for file in lfs.dir('.') do
-    if file:find('%.toc$') then
+    if file:find('%-Classic.toc$') then
       table.insert(tocs, file)
     end
   end

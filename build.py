@@ -21,10 +21,15 @@ if not buildyaml.exists():
     raise Exception('missing build.yaml or .pkgmeta')
 
 cfg = yaml.load(buildyaml.read_text(), Loader=yaml.Loader)
+versions = cfg['versions'] if 'versions' in cfg else {}
 libs = cfg['libs'] if 'libs' in cfg else {}
 sqls = cfg['sql'] if 'sql' in cfg else {}
 addon = cfg['addon']
 sqlluas = [str(Path(f).with_suffix('.lua')) for f in sqls]
+
+if not versions:
+    raise Exception('missing versions')
+tocs = [f'{addon}-{version}.toc' for version in versions]
 
 print('\n'.join([
     'rule lib',
@@ -50,11 +55,11 @@ print('\n'.join([
             '',
         ]
     ],
-    (f'build {addon}-Classic.toc | /tmp/build.dd : toc | ' +
+    (f'build {" ".join(tocs)} | /tmp/build.dd : toc | ' +
         ' '.join([f'libs/{lib}' for lib in libs.keys()])),
     '',
     f'build {addon}.zip: ' +
-        f'zip {addon}-Classic.toc | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
+        f'zip {" ".join(tocs)} | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
     '  dyndep = /tmp/build.dd',
     '',
 ]))
