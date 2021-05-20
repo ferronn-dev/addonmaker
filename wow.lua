@@ -756,6 +756,7 @@ return function()
     Minimap = CreateFrame('Minimap'),
     MinimapBackdrop = CreateFrame('Frame'),
     MinimapCluster = CreateFrame('Frame'),
+    MiniMapTracking = CreateFrame('Frame'),
     MiniMapTrackingFrame = CreateFrame('Frame'),
     MiniMapTrackingIcon = CreateFrame('Texture'),
     Mixin = Mixin,
