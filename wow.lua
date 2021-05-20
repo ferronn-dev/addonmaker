@@ -817,6 +817,7 @@ return function()
     end,
     TargetFrame = CreateFrame('Button'),
     TimeManagerClockButton = CreateFrame('Frame'),
+    TOOLTIP_UPDATE_TIME = 0.2,
     UIParent = CreateFrame('Frame'),
     UnitAura = UNIMPLEMENTED,
     UnitBuff = function(unit, index)
