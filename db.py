@@ -10,7 +10,7 @@ def run_bigqueries(query):
     client = bigquery.Client('wow-ferronn-dev')
     script = client.query(
         job_config=bigquery.job.QueryJobConfig(
-            default_dataset='wow-ferronn-dev.wow_tools_dbc_1_13_7_38475_enUS',
+            default_dataset='wow-ferronn-dev.wow_tools_dbc_1_13_7_38631_enUS',
             use_legacy_sql=False),
         query=query)
     result = script.result()
