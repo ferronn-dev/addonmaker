@@ -7,16 +7,18 @@ from google.cloud import bigquery
 import py2lua
 
 versions = [
-  (2, '1_13_7_38631'),
-  (5, '2_5_1_38644'),
+  (2, '1_13_7_38631', 'petopia'),
+  (5, '2_5_1_38644', 'petopia_bc'),
 ]
 
-def run_bigqueries(query, version):
+def run_bigqueries(query, dbc, petopia):
     """Runs the given SQL on BigQuery and outputs all SELECTs performed."""
+    query = query.replace('petopia.', petopia + '.')
+    print(query)
     client = bigquery.Client('wow-ferronn-dev')
     script = client.query(
         job_config=bigquery.job.QueryJobConfig(
-            default_dataset=f'wow-ferronn-dev.wow_tools_dbc_{version}_enUS',
+            default_dataset=f'wow-ferronn-dev.wow_tools_dbc_{dbc}_enUS',
             use_legacy_sql=False),
         query=query)
     result = script.result()
@@ -67,9 +69,9 @@ def main():
     sqlpath = Path(sql)
     sqltext = sqlpath.read_text()
 
-    def make_fields(dbc):
+    def make_fields(dbc, petopia):
         trie = pygtrie.StringTrie(separator='.')
-        for path, data in zip(tables, parse(list(run_bigqueries(sqltext, dbc)))):
+        for path, data in zip(tables, parse(list(run_bigqueries(sqltext, dbc, petopia)))):
             trie[path] = data
         return trie.traverse(
             lambda _, path, kids, value=None:
@@ -78,8 +80,8 @@ def main():
 
     tuples = [
         (key, (project, value))
-        for project, dbc in versions
-        for key, value in make_fields(dbc).items()
+        for project, dbc, petopia in versions
+        for key, value in make_fields(dbc, petopia).items()
     ]
     out = {
         key : dict(v[1] for v in values)
