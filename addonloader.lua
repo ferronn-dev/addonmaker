@@ -48,7 +48,7 @@ return function(before, tocarg)
     else
       error('invalid toc name found')
     end
-  end)
+  end)()
   local addon = {}
   for _, file in ipairs(files(toc)) do
     setfenv(file, env)('moo', addon)
