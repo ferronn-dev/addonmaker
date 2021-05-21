@@ -35,6 +35,6 @@ def addon_file(dbdict):
     return '\n'.join([
         '-- luacheck: max_line_length 1000',
         'local _, G = ...',
-        *[f'G.{k} = {py2lua(v)}' for k, v in dbdict.items()],
+        *[f'G.{k} = ({py2lua(v)})[WOW_PROJECT_ID]' for k, v in dbdict.items()],
         ''
     ])

@@ -5,12 +5,17 @@ import pygtrie
 from google.cloud import bigquery
 import py2lua
 
-def run_bigqueries(query):
+versions = [
+  (2, '1_13_7_38631'),
+  (5, '2_5_1_38644'),
+]
+
+def run_bigqueries(query, version):
     """Runs the given SQL on BigQuery and outputs all SELECTs performed."""
     client = bigquery.Client('wow-ferronn-dev')
     script = client.query(
         job_config=bigquery.job.QueryJobConfig(
-            default_dataset='wow-ferronn-dev.wow_tools_dbc_1_13_7_38631_enUS',
+            default_dataset=f'wow-ferronn-dev.wow_tools_dbc_{version}_enUS',
             use_legacy_sql=False),
         query=query)
     result = script.result()
@@ -54,16 +59,26 @@ def parse(data):
         if hasattr(data, '__getitem__') or hasattr(data, '__iter__')
         else dunno(data))
 
-sql = sys.argv[1]
-ts = sys.argv[2:]
-sqlpath = Path(sql)
-trie = pygtrie.StringTrie(separator='.')
-for path, job in zip(ts, run_bigqueries(sqlpath.read_text())):
-    trie[path] = parse(list(job))
-out = trie.traverse(
-    lambda _, path, kids, value=None:
-    (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
-    { path[-1]: merged } if path else merged)()  # pylint: disable=undefined-loop-variable
-)
-with open(sqlpath.with_suffix('.lua'), 'w') as f:
-    f.write(py2lua.addon_file(out))
+def main():
+    """Runs bigqueries and writes results."""
+    sql, tables = sys.argv[1], sys.argv[2:]
+
+    sqlpath = Path(sql)
+    sqltext = sqlpath.read_text()
+    sqldata = [
+        dict(zip([project for project, _ in versions], jobs))
+        for jobs in zip(*[parse(list(run_bigqueries(sqltext, dbc))) for _, dbc in versions])
+    ]
+
+    trie = pygtrie.StringTrie(separator='.')
+    for path, data in zip(tables, sqldata):
+        trie[path] = data
+    out = trie.traverse(
+        lambda _, path, kids, value=None:
+        (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
+        { path[-1]: merged } if path else merged)()  # pylint: disable=undefined-loop-variable
+    )
+    with open(sqlpath.with_suffix('.lua'), 'w') as outfile:
+        outfile.write(py2lua.addon_file(out))
+
+main()
