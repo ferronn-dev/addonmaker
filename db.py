@@ -1,4 +1,5 @@
 """Runs SQL queries from build.yaml specs and outputs Lua."""
+import itertools
 from pathlib import Path
 import sys
 import pygtrie
@@ -65,19 +66,26 @@ def main():
 
     sqlpath = Path(sql)
     sqltext = sqlpath.read_text()
-    sqldata = [
-        dict(zip([project for project, _ in versions], jobs))
-        for jobs in zip(*[parse(list(run_bigqueries(sqltext, dbc))) for _, dbc in versions])
-    ]
 
-    trie = pygtrie.StringTrie(separator='.')
-    for path, data in zip(tables, sqldata):
-        trie[path] = data
-    out = trie.traverse(
-        lambda _, path, kids, value=None:
-        (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
-        { path[-1]: merged } if path else merged)()  # pylint: disable=undefined-loop-variable
-    )
+    def make_fields(dbc):
+        trie = pygtrie.StringTrie(separator='.')
+        for path, data in zip(tables, parse(list(run_bigqueries(sqltext, dbc)))):
+            trie[path] = data
+        return trie.traverse(
+            lambda _, path, kids, value=None:
+            (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
+            { path[-1]: merged } if path else merged)())  # pylint: disable=undefined-loop-variable
+
+    tuples = [
+        (key, (project, value))
+        for project, dbc in versions
+        for key, value in make_fields(dbc).items()
+    ]
+    out = {
+        key : dict(v[1] for v in values)
+        for key, values in itertools.groupby(sorted(tuples), lambda x: x[0])
+    }
+
     with open(sqlpath.with_suffix('.lua'), 'w') as outfile:
         outfile.write(py2lua.addon_file(out))
 
