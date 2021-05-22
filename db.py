@@ -14,7 +14,6 @@ versions = [
 def run_bigqueries(query, dbc, petopia):
     """Runs the given SQL on BigQuery and outputs all SELECTs performed."""
     query = query.replace('petopia.', petopia + '.')
-    print(query)
     client = bigquery.Client('wow-ferronn-dev')
     script = client.query(
         job_config=bigquery.job.QueryJobConfig(
