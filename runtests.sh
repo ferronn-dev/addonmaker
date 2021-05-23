@@ -7,6 +7,5 @@ compgen -G "*test.lua" | while read test; do
   lua $test
 done
 for toc in *.toc; do
-  echo $toc
   compgen -G "*_spec.lua" | xargs -r busted -v --helper=/addonmaker/helper.lua -Xhelper "$toc"
 done

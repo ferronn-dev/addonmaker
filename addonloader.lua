@@ -1,15 +1,4 @@
-local lfs = require('lfs')
 local wowapi = require('wow')
-local function justClassicToc()
-  local tocs = {}
-  for file in lfs.dir('.') do
-    if file:find('%-Classic.toc$') then
-      table.insert(tocs, file)
-    end
-  end
-  assert(#tocs == 1, 'expecting exactly one toc file')
-  return tocs[1]
-end
 local function files(toc)
   local result = {}
   for line in io.lines(toc) do
@@ -26,8 +15,7 @@ local function files(toc)
   end
   return result
 end
-return function(before, tocarg)
-  local toc = tocarg or justClassicToc()
+return function(before, toc)
   local env, state = wowapi()
   if before then
     before(state)

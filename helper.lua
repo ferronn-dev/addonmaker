@@ -1,4 +1,5 @@
 local toc = ...
+print(toc)
 local busted = require('busted')
 local loader = require('addonloader')
 busted.subscribe({'test', 'start'}, function()
