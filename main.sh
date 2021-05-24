@@ -6,6 +6,6 @@ if [ "$1" = "clean" ]; then
 else
   ninja -f /tmp/build.ninja
   if [ "$1" = "release" ]; then
-    env GITHUB_TOKEN="$2" sh /addonmaker/release.sh
+    sh /addonmaker/release.sh
   fi
 fi
