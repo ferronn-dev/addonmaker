@@ -1,4 +1,4 @@
-local toc = ...
+local toc = unpack(arg)
 print(toc)
 local busted = require('busted')
 local loader = require('addonloader')
