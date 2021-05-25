@@ -407,10 +407,43 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         end,
       }
     end,
-    SecureHandlerStateTemplate = function()
+    SecureHandlerStateTemplate = function(self)
+      local function wrap(frame)
+        local refs = {}
+        return {
+          CallMethod = function(_, method, ...)
+            return frame[method](frame, ...)
+          end,
+          GetAttribute = function(_, attr)
+            return frame:GetAttribute(attr)
+          end,
+          GetFrameRef = function(_, name)
+            return refs[name]
+          end,
+          Run = UNIMPLEMENTED,
+          RunFor = UNIMPLEMENTED,
+          SetAttribute = function(_, attr, value)
+            return frame:SetAttribute(attr, value)
+          end,
+          SetFrameRef = function(_, name, ref)
+            refs[name] = ref
+          end,
+        }
+      end
+      local wself = wrap(self)
+      local renv = {
+        control = wself,
+        owner = wself,
+        newtable = function() return {} end,
+        self = wself,
+      }
       return {
-        Execute = UNIMPLEMENTED,
-        SetFrameRef = UNIMPLEMENTED,
+        Execute = function(_, cmd)
+          setfenv(loadstring(cmd), renv)()
+        end,
+        SetFrameRef = function(_, name, frame)
+          wself:SetFrameRef(name, wrap(frame))
+        end,
         WrapScript = UNIMPLEMENTED,
       }
     end,
