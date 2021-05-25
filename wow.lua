@@ -117,7 +117,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       }
     },
     FontInstance = {
-      data = {'fontObject'},
+      data = {
+        fontObject = {},
+      },
       api = {
         GetFont = UNIMPLEMENTED,
         GetFontObject = function(self)
@@ -141,7 +143,10 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     },
     Frame = {
       inherits = {'Region', 'ScriptObject'},
-      data = {'attributes', 'registeredEvents'},
+      data = {
+        attributes = {},
+        registeredEvents = {},
+      },
       scripts = {'OnEvent', 'OnUpdate'},
       api = {
         CreateFontString = function(self)
@@ -183,7 +188,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     },
     GameTooltip = {
       inherits = {'Frame'},
-      data = {'lines'},
+      data = {
+        lines = {},
+      },
       scripts = {'OnTooltipSetItem', 'OnTooltipSetSpell', 'OnTooltipSetUnit'},
       api = {
         AddDoubleLine = function(self, l, r, lr, lg, lb, rr, rg, rb)
@@ -239,6 +246,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     },
     Region = {
       inherits = {'UIObject', 'ScriptObject'},
+      data = {
+        shown = true,
+      },
       api = {
         ClearAllPoints = UNIMPLEMENTED,
         CreateAnimationGroup = function(self)
@@ -279,7 +289,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     ScriptObject = {
-      data = {'scripts'},
+      data = {
+        scripts = {},
+      },
       api = {
         GetScript = function(self, name)
           local script = self.scripts[name]
@@ -417,12 +429,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
   local frame = {}
   local scripts = {}
   for _, class in pairs(classes) do
-    for _, v in ipairs(class.data or {}) do
-      frame[v] = {}
-    end
-    for k, v in pairs(class.api or {}) do
-      frame[k] = v
-    end
+    Mixin(frame, class.api or {})
+    Mixin(frame, class.data or {})
     for _, v in ipairs(class.scripts or {}) do
       table.insert(scripts, v)
     end
