@@ -439,9 +439,11 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       }
       return {
         Execute = function(_, cmd)
+          assert(not env.InCombatLockdown(), 'disallowed in combat')
           setfenv(loadstring(cmd), renv)()
         end,
         SetFrameRef = function(_, name, frame)
+          assert(not env.InCombatLockdown(), 'disallowed in combat')
           wself:SetFrameRef(name, wrap(frame))
         end,
         WrapScript = UNIMPLEMENTED,
