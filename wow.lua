@@ -428,8 +428,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           Hide = function()
             frame:Hide()
           end,
-          Run = function(wself, cmd, ...)
-            setfenv(loadstring(cmd), renv)(wself, ...)
+          Run = function(_, cmd, ...)
+            setfenv(loadstring(cmd), renv)(...)
           end,
           RunAttribute = function(wself, attr, ...)
             wself:Run(wself:GetAttribute(attr), ...)
