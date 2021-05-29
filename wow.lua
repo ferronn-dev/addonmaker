@@ -408,30 +408,47 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       }
     end,
     SecureHandlerStateTemplate = function(self)
+      local renv
       local function wrap(frame)
         local refs = {}
         return {
           CallMethod = function(_, method, ...)
             return frame[method](frame, ...)
           end,
+          ClearBindings = UNIMPLEMENTED,
           GetAttribute = function(_, attr)
             return frame:GetAttribute(attr)
           end,
           GetFrameRef = function(_, name)
             return refs[name]
           end,
-          Run = UNIMPLEMENTED,
+          GetName = function()
+            return frame:GetName()
+          end,
+          Hide = function()
+            frame:Hide()
+          end,
+          Run = function(wself, cmd, ...)
+            setfenv(loadstring(cmd), renv)(wself, ...)
+          end,
+          RunAttribute = function(wself, attr, ...)
+            wself:Run(wself:GetAttribute(attr), ...)
+          end,
           RunFor = UNIMPLEMENTED,
           SetAttribute = function(_, attr, value)
             return frame:SetAttribute(attr, value)
           end,
+          SetBindingClick = UNIMPLEMENTED,
           SetFrameRef = function(_, name, ref)
             refs[name] = ref
+          end,
+          Show = function()
+            frame:Show()
           end,
         }
       end
       local wself = wrap(self)
-      local renv = {
+      renv = {
         control = wself,
         owner = wself,
         newtable = function() return {} end,
