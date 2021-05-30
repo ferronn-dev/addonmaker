@@ -450,9 +450,12 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       local wself = wrap(self)
       renv = {
         control = wself,
-        owner = wself,
+        ipairs = ipairs,
         newtable = function() return {} end,
+        owner = wself,
+        pairs = pairs,
         self = wself,
+        tostring = tostring,
       }
       return {
         Execute = function(_, cmd)
