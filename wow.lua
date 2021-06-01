@@ -428,8 +428,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           Hide = function()
             frame:Hide()
           end,
-          Run = function(_, cmd, ...)
-            setfenv(loadstring(cmd), renv)(...)
+          Run = function(wself, cmd, ...)
+            local wenv = Mixin(Mixin({}, renv), { self = wself })
+            setfenv(loadstring(cmd), wenv)(...)
           end,
           RunAttribute = function(wself, attr, ...)
             wself:Run(wself:GetAttribute(attr), ...)
@@ -456,6 +457,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         pairs = pairs,
         self = wself,
         tostring = tostring,
+        type = type,
       }
       return {
         Execute = function(_, cmd)
