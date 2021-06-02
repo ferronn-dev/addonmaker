@@ -747,6 +747,9 @@ return function()
     GetNumTalentTabs = function()
       return #state.talents
     end,
+    GetNumTrackingTypes = function()
+      return 0
+    end,
     GetRealmName = function()
       return state.realm
     end,
@@ -777,6 +780,7 @@ return function()
     GetTime = function()
       return state.localTime
     end,
+    GetTrackingInfo = UNIMPLEMENTED,
     GetTrackingTexture = UNIMPLEMENTED,
     GetUnitSpeed = function()
       return 0
