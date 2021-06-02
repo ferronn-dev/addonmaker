@@ -361,7 +361,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
   }
-  local mixins = {
+  local mixins
+  mixins = {
     ActionButtonTemplate = function()
       return {
         Border = CreateFrame('Texture'),
@@ -406,6 +407,10 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           end
         end,
       }
+    end,
+    SecureHandlerBaseTemplate = function(self)
+      -- TODO inheritance
+      return mixins.SecureHandlerStateTemplate(self)
     end,
     SecureHandlerStateTemplate = function(self)
       local renv
@@ -863,6 +868,9 @@ return function()
     end,
     SetDesaturation = function(texture, desaturation)
       texture:SetDesaturated(desaturation)
+    end,
+    SetOverrideBindingClick = function(_, _, key, buttonName)
+      return env.SetBindingClick(key, buttonName)
     end,
     SetRaidProfileOption = UNIMPLEMENTED,
     SetRaidProfileSavedPosition = UNIMPLEMENTED,
