@@ -769,7 +769,7 @@ return function()
       return 0, 0, 0
     end,
     GetSpellInfo = function(spell)
-      return 'spell'..spell, nil, 12345, 0
+      return 'spell'..spell, nil, 12345, 0, 0, 0, 23456
     end,
     GetSpellLossOfControlCooldown = function()
       return 0, 0
