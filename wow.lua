@@ -768,6 +768,9 @@ return function()
     GetSpellCooldown = function()
       return 0, 0, 0
     end,
+    GetSpellCount = function()
+      return 0
+    end,
     GetSpellInfo = function(spell)
       return 'spell'..spell, nil, 12345, 0, 0, 0, 23456
     end,
