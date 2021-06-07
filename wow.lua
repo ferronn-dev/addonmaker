@@ -434,8 +434,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
             frame:Hide()
           end,
           Run = function(wself, cmd, ...)
-            local wenv = Mixin(Mixin({}, renv), { self = wself })
-            setfenv(loadstring(cmd), wenv)(...)
+            renv.self = wself
+            setfenv(loadstring(cmd), renv)(...)
           end,
           RunAttribute = function(wself, attr, ...)
             wself:Run(wself:GetAttribute(attr), ...)
@@ -467,7 +467,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       return {
         Execute = function(_, cmd)
           assert(not env.InCombatLockdown(), 'disallowed in combat')
-          setfenv(loadstring(cmd), renv)()
+          wself:Run(cmd)
         end,
         SetFrameRef = function(_, name, frame)
           assert(not env.InCombatLockdown(), 'disallowed in combat')
