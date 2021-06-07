@@ -435,7 +435,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           end,
           Run = function(wself, cmd, ...)
             renv.self = wself
-            setfenv(loadstring(cmd), renv)(...)
+            return setfenv(loadstring(cmd), renv)(...)
           end,
           RunAttribute = function(wself, attr, ...)
             wself:Run(wself:GetAttribute(attr), ...)
@@ -473,7 +473,18 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           assert(not env.InCombatLockdown(), 'disallowed in combat')
           wself:SetFrameRef(name, wrap(frame))
         end,
-        WrapScript = UNIMPLEMENTED,
+        WrapScript = function(_, frame, script, pre, post)
+          assert(not env.InCombatLockdown(), 'disallowed in combat')
+          local old = frame:GetScript(script)
+          frame:SetScript(script, function(fself, ...)
+            local fwrap = wrap(fself)
+            local _, arg = fwrap:Run(pre)
+            old(fself, ...)
+            if arg then
+              fwrap:Run(post, arg)
+            end
+          end)
+        end,
       }
     end,
     SecureUnitButtonTemplate = UNIMPLEMENTED,
