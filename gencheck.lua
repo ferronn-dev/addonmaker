@@ -9,6 +9,7 @@ read_globals = {]])
 local symbols = {
   'ChatThrottleLib',
   'LibStub',
+  'setfenv',
 }
 for k in pairs(require('wow')({})) do
   if k ~= 'StaticPopupDialogs' then
