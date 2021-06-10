@@ -491,6 +491,11 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       }
     end,
     SecureUnitButtonTemplate = UNIMPLEMENTED,
+    UIPanelButtonTemplate = function(self)
+      return {
+        Text = CreateFrame('FontString', self:GetName() .. 'Text')
+      }
+    end,
   }
   local toProcess = {className}
   local classes = {}
