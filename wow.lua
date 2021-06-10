@@ -811,6 +811,7 @@ return function()
     end,
     InterfaceOptions_AddCategory = UNIMPLEMENTED,
     InterfaceOptionsFrame_OpenToCategory = UNIMPLEMENTED,
+    IsActionInRange = UNIMPLEMENTED,
     IsAttackSpell = UNIMPLEMENTED,
     IsAutoRepeatAction = UNIMPLEMENTED,
     IsAutoRepeatSpell = UNIMPLEMENTED,
@@ -838,6 +839,7 @@ return function()
       return state:IsSpellKnown(spell)
     end,
     IsStackableAction = UNIMPLEMENTED,
+    IsUsableAction = UNIMPLEMENTED,
     IsUsableItem = UNIMPLEMENTED,
     IsUsableSpell = function(spell)
       return state:IsSpellKnown(spell), false
