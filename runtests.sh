@@ -7,4 +7,6 @@ luas '*test.lua' | while read test; do
   echo "******** $test *******"
   lua $test
 done
-luas '*_spec.lua' | xargs -r busted -v
+for toc in *.toc; do
+  luas '*_spec.lua' | xargs -r busted -v --helper=/addonmaker/helper.lua -Xhelper "$toc"
+done

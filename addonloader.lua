@@ -15,10 +15,10 @@ local function files(toc)
   end
   return result
 end
-return function(arg)
+return function(before, toc)
   local env, state = wowapi()
-  if arg.before then
-    arg.before(state)
+  if before then
+    before(state)
   end
   for k, v in pairs(_G) do
     env[k] = v
@@ -26,7 +26,6 @@ return function(arg)
   env.table.unpack = nil
   env['_G'] = env
   env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
-  local toc = arg.toc
   env['WOW_PROJECT_ID'] = (function()
     if toc:find('%-Classic.toc$') then
       return env.WOW_PROJECT_CLASSIC
@@ -42,9 +41,5 @@ return function(arg)
   for _, file in ipairs(files(toc)) do
     setfenv(file, env)('moo', addon)
   end
-  return {
-    addon = addon,
-    env = env,
-    state = state,
-  }
+  return state, env, addon
 end

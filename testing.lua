@@ -16,11 +16,8 @@ return {
       print(toc)
       local failed = 0
       for i, test in ipairs(tests) do
-        local wow = loader({
-          before = tests.before,
-          toc = toc,
-        })
-        local success, err = pcall(test, wow.state, nil, wow.addon, wow.env)
+        local state, env, addon = loader(tests.before, toc)
+        local success, err = pcall(test, state, nil, addon, env)
         if not success then
           failed = failed + 1
           print(i .. ': ' .. err)

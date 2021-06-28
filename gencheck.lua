@@ -1,6 +1,7 @@
 print([[-- luacheck: globals files globals read_globals std
 files['*_spec.lua'] = {
   std = '+busted',
+  globals = {'wow'},
 }
 std = 'min'
 read_globals = {]])
