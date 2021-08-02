@@ -7,13 +7,13 @@ buildyaml = Path('build.yaml')
 pkgmeta = Path('.pkgmeta')
 
 if pkgmeta.exists() and not buildyaml.exists():
-    cfg = yaml.load(pkgmeta.read_text(), Loader=yaml.Loader)
+    cfg = yaml.load(pkgmeta.read_text().replace('\t', ' '), Loader=yaml.Loader)
     libs = cfg['externals'] if 'externals' in cfg else {}
     print('\n'.join([
         'rule lib',
         '  command = sh /addonmaker/getlib.sh $repo $out',
         '',
-        *[f'build {lib} : lib\n  repo = {repo}' for lib, repo in libs.items()],
+        *[f'build {lib} : lib\n  repo = {repo["url"]}' for lib, repo in libs.items()],
     ]))
     sys.exit(0)
 
