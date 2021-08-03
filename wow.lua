@@ -1,3 +1,5 @@
+local bitlib = require('bit')
+
 local UNIMPLEMENTED = function() end
 
 local unpack = unpack or table.unpack
@@ -200,6 +202,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
               rr = rr, rg = rg, rb = rb
           })
         end,
+        AddFontStrings = UNIMPLEMENTED,
         AddLine = function(self, s, r, g, b)
           self:AddDoubleLine(s, nil, r, g, b, nil, nil, nil)
         end,
@@ -647,6 +650,14 @@ return function()
     ANCHOR_BOTTOMLEFT = 'ANCHOR_BOTTOMLEFT',
     ANCHOR_NONE = 'ANCHOR_NONE',
     ATTACK_BUTTON_FLASH_TIME = 0.1,
+    AuraUtil = {
+      FindAura = UNIMPLEMENTED,
+      FindAuraByName = UNIMPLEMENTED,
+    },
+    bit = {
+      band = bitlib.band,
+      bor = bitlib.bor,
+    },
     C_ChatInfo = {
       RegisterAddonMessagePrefix = UNIMPLEMENTED,
       SendAddonMessage = function(prefix, message, chatType, target)
@@ -745,6 +756,7 @@ return function()
       return state.equipment[i]
     end,
     GetInventoryItemTexture = UNIMPLEMENTED,
+    GetInventorySlotInfo = UNIMPLEMENTED,
     GetItemCooldown = function()
       return 0, 0, 0
     end,
@@ -812,6 +824,7 @@ return function()
     GetUnitSpeed = function()
       return 0
     end,
+    GetZonePVPInfo = UNIMPLEMENTED,
     HasAction = UNIMPLEMENTED,
     hooksecurefunc = UNIMPLEMENTED,
     InCombatLockdown = function()
@@ -830,12 +843,14 @@ return function()
     IsCurrentItem = UNIMPLEMENTED,
     IsCurrentSpell = UNIMPLEMENTED,
     IsEquippedAction = UNIMPLEMENTED,
+    IsEquippedItem = UNIMPLEMENTED,
     IsInGroup = function()
       return state.inGroup
     end,
     IsInInstance = function()
       return state.instanceId ~= nil
     end,
+    IsInRaid = UNIMPLEMENTED,
     IsItemAction = UNIMPLEMENTED,
     IsLoggedIn = UNIMPLEMENTED,
     IsMounted = function()
@@ -854,6 +869,8 @@ return function()
     end,
     ItemRefTooltip = CreateFrame('GameTooltip'),
     MainMenuBar = CreateFrame('Frame'),
+    MAX_PARTY_MEMBERS = 4,
+    MAX_RAID_MEMBERS = 40,
     Minimap = CreateFrame('Minimap'),
     MinimapBackdrop = CreateFrame('Frame'),
     MinimapCluster = CreateFrame('Frame'),
@@ -944,6 +961,9 @@ return function()
     UnitExists = function(unit)
       return unit == 'player'
     end,
+    UnitGUID = function(unit)
+      return 'GUID:' .. unit
+    end,
     UnitHealth = function()
       return state.player.health
     end,
@@ -954,6 +974,7 @@ return function()
     UnitInParty = function()
       return true
     end,
+    UnitInRaid = UNIMPLEMENTED,
     UnitIsDeadOrGhost = UNIMPLEMENTED,
     UnitIsUnit = UNIMPLEMENTED,
     UnitLevel = function()

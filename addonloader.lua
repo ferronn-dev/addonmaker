@@ -10,7 +10,7 @@ local function files(toc)
       if content:sub(1, 3) == '\239\187\191' then
         content = content:sub(4)
       end
-      table.insert(result, assert(loadstring(content)))
+      table.insert(result, assert(loadstring(content, line)))
     end
   end
   return result
