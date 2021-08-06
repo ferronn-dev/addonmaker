@@ -970,11 +970,11 @@ return function()
     UnitHealthMax = function()
       return state.player.healthmax
     end,
-    UnitInRange = UNIMPLEMENTED,
     UnitInParty = function()
-      return true
+      return state.inGroup
     end,
     UnitInRaid = UNIMPLEMENTED,
+    UnitInRange = UNIMPLEMENTED,
     UnitIsDeadOrGhost = UNIMPLEMENTED,
     UnitIsUnit = UNIMPLEMENTED,
     UnitLevel = function()
