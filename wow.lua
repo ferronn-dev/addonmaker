@@ -467,6 +467,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         pairs = pairs,
         self = wself,
         tinsert = table.insert,
+        tonumber = tonumber,
         tostring = tostring,
         type = type,
       }
