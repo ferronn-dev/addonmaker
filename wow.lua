@@ -552,6 +552,7 @@ return function()
     return CreateFrameImpl(env, state, ...)
   end
   state = {
+    actions = {},
     bindings = {},
     commands = {},
     frames = {},
@@ -825,7 +826,9 @@ return function()
       return 0
     end,
     GetZonePVPInfo = UNIMPLEMENTED,
-    HasAction = UNIMPLEMENTED,
+    HasAction = function(action)
+      return not not state.actions[action]
+    end,
     hooksecurefunc = UNIMPLEMENTED,
     InCombatLockdown = function()
       return state.inCombat
