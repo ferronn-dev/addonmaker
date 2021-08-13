@@ -557,6 +557,7 @@ return function()
     bindings = {},
     commands = {},
     frames = {},
+    petactions = {},
     player = {
       class = 2,
       health = 1500,
@@ -788,6 +789,9 @@ return function()
     GetNumTrackingTypes = function()
       return 0
     end,
+    GetPetActionInfo = function(num)
+      return unpack(state.petactions[num] or {})
+    end,
     GetRealmName = function()
       return state.realm
     end,
@@ -884,6 +888,7 @@ return function()
     Mixin = Mixin,
     NumberFont_Small = CreateFrame('FontInstance'),
     NUM_BAG_SLOTS = 4,
+    NUM_PET_ACTION_SLOTS = 10,
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
     RaidFrame = CreateFrame('Frame'),
