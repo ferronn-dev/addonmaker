@@ -139,8 +139,12 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     FontString = {
       inherits = {'FontInstance', 'LayeredRegion'},
       api = {
-        GetText = UNIMPLEMENTED,
-        SetText = UNIMPLEMENTED,
+        GetText = function(self)
+          return self.fontStringText
+        end,
+        SetText = function(self, str)
+          self.fontStringText = str
+        end,
       },
     },
     Frame = {
