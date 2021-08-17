@@ -166,6 +166,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         GetAttribute = function(self, name)
           return self.attributes[name]
         end,
+        GetID = function(self)
+          return self.frameID or 0
+        end,
         RegisterEvent = function(self, ev)
           self.registeredEvents[ev] = true
         end,
@@ -181,6 +184,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetClampRectInsets = UNIMPLEMENTED,
         SetFrameLevel = UNIMPLEMENTED,
         SetFrameStrata = UNIMPLEMENTED,
+        SetID = function(self, id)
+          self.frameID = id
+        end,
         SetMinResize = UNIMPLEMENTED,
         SetMouseClickEnabled = UNIMPLEMENTED,
         SetMovable = UNIMPLEMENTED,
@@ -433,6 +439,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           end,
           GetFrameRef = function(_, name)
             return refs[name]
+          end,
+          GetID = function()
+            return frame:GetID()
           end,
           GetName = function()
             return frame:GetName()
