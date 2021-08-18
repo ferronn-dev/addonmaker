@@ -417,8 +417,6 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
               spell = self:GetAttribute('spell'),
               unit = self:GetAttribute('unit'),
             })
-          elseif ty == 'click' then
-            env[self:GetAttribute('clickbutton')]:Click()
           end
         end,
       }
