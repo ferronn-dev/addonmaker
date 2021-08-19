@@ -802,6 +802,9 @@ return function()
     GetNumTrackingTypes = function()
       return 0
     end,
+    GetPetActionCooldown = function()
+      return 0, 0, 0
+    end,
     GetPetActionInfo = function(num)
       return unpack(state.petactions[num] or {})
     end,
