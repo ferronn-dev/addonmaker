@@ -30,8 +30,16 @@ def py2lua(value, indent=''):
         ]) + f'{indent}}}') if isinstance(value, abc.Iterable) or hasattr(value, '__getitem__') else
         'nil')
 
-def addon_file(dbdict):
+def addon_file(dbdict, stublib=None):
     """Converts a name-value dictionary into a WoW addon file with a literal dictionary."""
+    if stublib:
+        return '\n'.join([
+            '-- luacheck: max_line_length 1000',
+            *[f'Mixin(LibStub:NewLibrary({luaquote(stublib + "-" + k)}, 1), ' +
+                f'({py2lua(v)})[WOW_PROJECT_ID])'
+              for k, v in dbdict.items()],
+            ''
+        ])
     return '\n'.join([
         '-- luacheck: max_line_length 1000',
         'local _, G = ...',

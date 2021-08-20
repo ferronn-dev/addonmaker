@@ -25,6 +25,7 @@ versions = cfg['versions'] if 'versions' in cfg else {}
 libs = cfg['libs'] if 'libs' in cfg else {}
 sqls = cfg['sql'] if 'sql' in cfg else {}
 addon = cfg['addon']
+stublib = addon if 'libstub' in cfg else None
 sqlluas = [str(Path(f).with_suffix('.lua')) for f in sqls]
 
 if not versions:
@@ -37,7 +38,7 @@ print('\n'.join([
     '',
     'rule sql',
     '  command = env GOOGLE_APPLICATION_CREDENTIALS=/addonmaker/creds.json ' +
-        'python3 /addonmaker/db.py $in $tables',
+        f'python3 /addonmaker/db.py $in {stublib} $tables',
     '',
     'rule toc',
     '  command = python3 /addonmaker/gentoc.py',

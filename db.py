@@ -63,7 +63,7 @@ def parse(data):
 
 def main():
     """Runs bigqueries and writes results."""
-    sql, tables = sys.argv[1], sys.argv[2:]
+    sql, stublib, tables = sys.argv[1], sys.argv[2], sys.argv[3:]
 
     sqlpath = Path(sql)
     sqltext = sqlpath.read_text()
@@ -88,6 +88,6 @@ def main():
     }
 
     with open(sqlpath.with_suffix('.lua'), 'w') as outfile:
-        outfile.write(py2lua.addon_file(out))
+        outfile.write(py2lua.addon_file(out, stublib))
 
 main()
