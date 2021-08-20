@@ -15,8 +15,8 @@ COPY rocks.txt .
 RUN cat rocks.txt | xargs -n1 luarocks install
 ARG TARGETOS
 ARG TARGETARCH
-RUN wget https://github.com/cli/cli/releases/download/v1.9.2/gh_1.9.2_${TARGETOS}_${TARGETARCH}.deb
-RUN apt install ./gh_1.9.2_${TARGETOS}_${TARGETARCH}.deb
+RUN wget https://github.com/cli/cli/releases/download/v1.14.0/gh_1.14.0_${TARGETOS}_${TARGETARCH}.deb
+RUN apt install ./gh_1.14.0_${TARGETOS}_${TARGETARCH}.deb
 COPY *.lua *.py *.sh creds.json .pylintrc ./
 RUN lua5.1 gencheck.lua > luacheckrc.lua
 RUN luacheck *.lua && pylint *.py
