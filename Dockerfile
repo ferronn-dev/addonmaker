@@ -4,6 +4,9 @@ COPY packages.txt .
 RUN apt-get update && apt-get -y install `cat packages.txt` && apt-get clean
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
+RUN git clone -b v1.10.2 --depth 1 https://github.com/ninja-build/ninja
+RUN cd ninja && ./configure.py --bootstrap && cp ninja /usr/local/bin
+RUN rm -rf ninja
 RUN wget https://luarocks.org/releases/luarocks-3.5.0.tar.gz
 RUN tar zxpf luarocks-3.5.0.tar.gz
 RUN cd luarocks-3.5.0 && ./configure && make && make install

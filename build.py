@@ -56,9 +56,11 @@ print('\n'.join([
             '',
         ]
     ],
-    (f'build {" ".join(tocs)} : toc | ' +
+    (f'build {" ".join(tocs)} | /tmp/build.dd : toc | ' +
         ' '.join([f'libs/{lib}' for lib in libs.keys()])),
     '',
-    f'build {addon}.zip : zip {" ".join(tocs)} | {" ".join(sqlluas)}',
+    f'build {addon}.zip: ' +
+        f'zip {" ".join(tocs)} | ' + ' '.join(sqlluas) + ' || /tmp/build.dd',
+    '  dyndep = /tmp/build.dd',
     '',
 ]))
