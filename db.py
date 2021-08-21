@@ -87,7 +87,7 @@ def main():
         for key, values in itertools.groupby(sorted(tuples), lambda x: x[0])
     }
 
-    with open(sqlpath.with_suffix('.lua'), 'w') as outfile:
+    with open(sqlpath.with_suffix('.lua'), 'w', encoding='utf8') as outfile:
         outfile.write(py2lua.addon_file(out, stublib))
 
 main()
