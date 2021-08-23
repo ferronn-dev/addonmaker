@@ -1,8 +1,8 @@
 set -e
 echo 'Building addonmaker...'
-if [ -n $ADDONMAKER_IMAGE ]; then
+if [ -n "$ADDONMAKER_IMAGE" ]; then
   image=$ADDONMAKER_IMAGE
-elif [ -n $ADDONMAKER_BUILDCACHE ]; then
+elif [ -n "$ADDONMAKER_BUILDCACHE" ]; then
   image=addonmaker.$$
   docker buildx build -t $image --load \
       --cache-from=type=local,src=$ADDONMAKER_BUILDCACHE \
