@@ -876,6 +876,7 @@ return function()
     end,
     IsInRaid = UNIMPLEMENTED,
     IsItemAction = UNIMPLEMENTED,
+    IsItemInRange = UNIMPLEMENTED,
     IsLoggedIn = UNIMPLEMENTED,
     IsMounted = function()
       return state.isMounted
