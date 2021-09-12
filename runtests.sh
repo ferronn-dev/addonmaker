@@ -7,6 +7,16 @@ luas '*test.lua' | while read test; do
   echo "******** $test *******"
   lua $test
 done
+declare -A pids
 for toc in *.toc; do
-  luas '*_spec.lua' | xargs -r busted -v --helper=/addonmaker/helper.lua -Xhelper "$toc"
+  luas '*_spec.lua' | xargs -r busted -v --helper=/addonmaker/helper.lua -Xhelper "$toc" > "/tmp/$toc.testout" &
+  pids["$toc"]=$!
 done
+status=0
+for toc in *.toc; do
+  if ! wait ${pids["$toc"]}; then
+    status=1
+  fi
+  cat "/tmp/$toc.testout"
+done
+exit $status
