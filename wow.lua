@@ -792,6 +792,9 @@ return function()
     GetNumGroupMembers = function()
       return 0
     end,
+    GetNumSkillLines = function()
+      return 0
+    end,
     GetNumTalents = function(tab)
       assert(tab >= 1 and tab <= #state.talents)
       return #state.talents[tab]
@@ -817,6 +820,7 @@ return function()
     GetServerTime = function()
       return state.serverTime
     end,
+    GetSkillLineInfo = UNIMPLEMENTED,
     GetSpellCharges = UNIMPLEMENTED,
     GetSpellCooldown = function()
       return 0, 0, 0
@@ -908,6 +912,7 @@ return function()
     NUM_PET_ACTION_SLOTS = 10,
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
+    PROFESSIONS_FIRST_AID = 'First Aid',
     RaidFrame = CreateFrame('Frame'),
     RegisterAttributeDriver = UNIMPLEMENTED,
     RegisterStateDriver = UNIMPLEMENTED,
