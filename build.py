@@ -7,7 +7,7 @@ buildyaml = Path('build.yaml')
 pkgmeta = Path('.pkgmeta')
 
 if pkgmeta.exists() and not buildyaml.exists():
-    cfg = yaml.load(pkgmeta.read_text().replace('\t', ' '), Loader=yaml.Loader)
+    cfg = yaml.load(pkgmeta.read_text(encoding='utf8').replace('\t', ' '), Loader=yaml.Loader)
     libs = cfg['externals'] if 'externals' in cfg else {}
     print('\n'.join([
         'rule lib',
@@ -20,7 +20,7 @@ if pkgmeta.exists() and not buildyaml.exists():
 if not buildyaml.exists():
     raise Exception('missing build.yaml or .pkgmeta')
 
-cfg = yaml.load(buildyaml.read_text(), Loader=yaml.Loader)
+cfg = yaml.load(buildyaml.read_text(encoding='utf8'), Loader=yaml.Loader)
 versions = cfg['versions'] if 'versions' in cfg else {}
 libs = cfg['libs'] if 'libs' in cfg else {}
 sqls = cfg['sql'] if 'sql' in cfg else {}

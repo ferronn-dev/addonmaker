@@ -4,7 +4,7 @@ from lxml import etree
 from toposort import toposort_flatten
 import yaml
 
-cfg = yaml.load(Path('build.yaml').read_text(), Loader=yaml.Loader)
+cfg = yaml.load(Path('build.yaml').read_text(encoding='utf8'), Loader=yaml.Loader)
 if 'Interface' in cfg['toc']:
     raise Exception('do not specify Interface in build.yaml toc')
 
@@ -23,7 +23,7 @@ libfiles = [
     for toc in Path(f'libs/{lib}').glob('*.toc')
     for line in [
         line.replace('\\', '/')
-        for line in Path(toc).read_text().splitlines()
+        for line in Path(toc).read_text(encoding='utf8').splitlines()
     ] if line and not line.startswith('## ')
     for luafile in (
         [line] if line.endswith('.lua') else
@@ -47,11 +47,11 @@ for v in cfg['versions']:
         *[f'## {k}: {v}' for k, v in cfg['toc'].items()],
         *files,
         '',
-    ]))
+    ]), encoding='utf8')
 
 Path('/tmp/build.dd').write_text('\n'.join([
     'ninja_dyndep_version = 1',
     f'build {cfg["addon"]}.zip: dyndep | ' + ' '.join(files),
     '  restat = 1',
     '',
-]))
+]), encoding='utf8')

@@ -66,7 +66,7 @@ def main():
     sql, stublib, tables = sys.argv[1], sys.argv[2], sys.argv[3:]
 
     sqlpath = Path(sql)
-    sqltext = sqlpath.read_text()
+    sqltext = sqlpath.read_text(encoding='utf8')
 
     def make_fields(dbc, petopia):
         trie = pygtrie.StringTrie(separator='.')
