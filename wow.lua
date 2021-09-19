@@ -765,6 +765,7 @@ return function()
     GetInventoryItemCooldown = function()
       return 0, 0, 0
     end,
+    GetInventoryItemCount = UNIMPLEMENTED,
     GetInventoryItemDurability = UNIMPLEMENTED,
     GetInventoryItemID = UNIMPLEMENTED,
     GetInventoryItemLink = function(unit, i)
