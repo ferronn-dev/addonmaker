@@ -821,6 +821,7 @@ return function()
     GetServerTime = function()
       return state.serverTime
     end,
+    GetShapeshiftForm = UNIMPLEMENTED,
     GetSkillLineInfo = UNIMPLEMENTED,
     GetSpellCharges = UNIMPLEMENTED,
     GetSpellCooldown = function()
