@@ -260,12 +260,16 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     Region = {
       inherits = {'UIObject', 'ScriptObject'},
       data = {
+        alpha = 1.0,
         shown = true,
       },
       api = {
         ClearAllPoints = UNIMPLEMENTED,
         CreateAnimationGroup = function(self)
           return CreateFrame('AnimationGroup', nil, self)
+        end,
+        GetAlpha = function(self)
+          return self.alpha
         end,
         GetCenter = UNIMPLEMENTED,
         GetEffectiveAlpha = function()
@@ -284,7 +288,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         end,
         IsVisible = UNIMPLEMENTED,
         SetAllPoints = UNIMPLEMENTED,
-        SetAlpha = UNIMPLEMENTED,
+        SetAlpha = function(self, value)
+          self.alpha = value
+        end,
         SetHeight = function(self, value)
           self.height = value
         end,
