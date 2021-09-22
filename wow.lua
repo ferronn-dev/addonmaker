@@ -676,6 +676,8 @@ return function()
       FindAura = UNIMPLEMENTED,
       FindAuraByName = UNIMPLEMENTED,
     },
+    AutoCastShine_AutoCastStart = UNIMPLEMENTED,
+    AutoCastShine_AutoCastStop = UNIMPLEMENTED,
     bit = {
       band = bitlib.band,
       bor = bitlib.bor,
