@@ -875,7 +875,9 @@ return function()
     IsAutoRepeatAction = UNIMPLEMENTED,
     IsAutoRepeatSpell = UNIMPLEMENTED,
     IsConsumableAction = UNIMPLEMENTED,
-    IsConsumableItem = UNIMPLEMENTED,
+    IsConsumableItem = function()
+      return true
+    end,
     IsConsumableSpell = UNIMPLEMENTED,
     IsCurrentAction = UNIMPLEMENTED,
     IsCurrentItem = UNIMPLEMENTED,
