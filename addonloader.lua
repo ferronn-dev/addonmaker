@@ -24,6 +24,7 @@ return function(before, toc)
     env[k] = v
   end
   env.table.unpack = nil
+  env.table.wipe = env.wipe
   env['_G'] = env
   env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
   env['WOW_PROJECT_ID'] = (function()

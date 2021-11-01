@@ -718,12 +718,19 @@ return function()
     ChatFrame1 = CreateFrame('MessageFrame'),
     CooldownFrame_Set = UNIMPLEMENTED,
     CreateFrame = CreateFrame,
+    DebuffTypeColor = {},
     DisableAddOn = UNIMPLEMENTED,
     DoEmote = UNIMPLEMENTED,
+    Enum = {
+      PowerType = {},
+      PvPUnitClassification = {},
+      SummonStatus = {},
+    },
     EquipItemByName = function(item, slot)
       state.equipment[slot] = item
     end,
     ERR_LEARN_SPELL_S = 'You have learned a new spell: %s.',
+    FACTION_BAR_COLORS = {},
     FindSpellBookSlotBySpellID = UNIMPLEMENTED,
     FollowUnit = UNIMPLEMENTED,
     format = string.format,
@@ -740,6 +747,7 @@ return function()
     GetActionText = UNIMPLEMENTED,
     GetActionTexture = UNIMPLEMENTED,
     GetAddOnEnableState = UNIMPLEMENTED,
+    GetAddOnMetadata = UNIMPLEMENTED,
     GetBindingByKey = function(key)
       return state.bindings[key]
     end,
@@ -852,6 +860,7 @@ return function()
       local c = state.talents[tab][i] or 0
       return nil, nil, nil, nil, c
     end,
+    GetThreatStatusColor = UNIMPLEMENTED,
     GetTime = function()
       return state.localTime
     end,
@@ -926,6 +935,7 @@ return function()
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
     PROFESSIONS_FIRST_AID = 'First Aid',
     RaidFrame = CreateFrame('Frame'),
+    RAID_CLASS_COLORS = {},
     RegisterAttributeDriver = UNIMPLEMENTED,
     RegisterStateDriver = UNIMPLEMENTED,
     RegisterUnitWatch = UNIMPLEMENTED,
