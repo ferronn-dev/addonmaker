@@ -715,6 +715,7 @@ return function()
         })
       end
     },
+    CastingBarFrame = CreateFrame('StatusBar'),
     ChatFrame1 = CreateFrame('MessageFrame'),
     CooldownFrame_Set = UNIMPLEMENTED,
     CreateFrame = CreateFrame,
