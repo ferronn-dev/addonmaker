@@ -3,7 +3,7 @@ local function files(toc)
   local result = {}
   for line in io.lines(toc) do
     line = line:match('^%s*(.-)%s*$'):gsub('\\', '/')
-    if line ~= '' and line:sub(1, 2) ~= '##' then
+    if line ~= '' and line:sub(1, 2) ~= '##' and line:sub(-4) == '.lua' then
       local f = assert(io.open(line, "rb"))
       local content = f:read('*all')
       f:close()
