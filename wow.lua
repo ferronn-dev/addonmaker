@@ -693,6 +693,11 @@ return function()
         })
       end,
     },
+    C_Item = {
+      RequestLoadItemDataByID = function(item)
+        state:SendEvent('ITEM_DATA_LOAD_RESULT', item, true)
+      end,
+    },
     C_Map = {
       GetBestMapForUnit = UNIMPLEMENTED,
       GetMapInfo = function(mapid)
