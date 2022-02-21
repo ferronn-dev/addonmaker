@@ -798,7 +798,9 @@ return function()
       return state.inventory[item] or 0
     end,
     GetItemIcon = UNIMPLEMENTED,
-    GetItemInfo = UNIMPLEMENTED,
+    GetItemInfo = function()
+      return nil, nil, nil, nil, nil, nil, nil, 2
+    end,
     GetItemSpell = UNIMPLEMENTED,
     GetLocale = UNIMPLEMENTED,
     GetMacroInfo = UNIMPLEMENTED,
