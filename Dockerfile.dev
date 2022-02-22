@@ -1,0 +1,22 @@
+FROM debian:testing
+WORKDIR /addonmaker
+COPY packages.txt .
+RUN apt update && apt -y install \
+    cargo \
+    git \
+    luarocks \
+    man \
+    ninja-build \
+    pre-commit \
+    python3-pip \
+    subversion \
+    `cat packages.txt`
+RUN cargo install --root=/usr/local stylua
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+COPY rocks.txt .
+RUN cat rocks.txt | xargs -n1 luarocks install
+COPY *.lua *.py *.sh creds.json .pylintrc ./
+RUN lua5.1 gencheck.lua > luacheckrc.lua
+RUN luacheck *.lua && pylint *.py
+WORKDIR /addon
