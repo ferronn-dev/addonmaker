@@ -42,7 +42,7 @@ files = libfiles + toposort_flatten({
 })
 
 for v in cfg['versions']:
-    Path(f'{cfg["addon"]}-{v}.toc').write_text('\r\n'.join([
+    Path(f'{cfg["addon"]}_{v}.toc').write_text('\r\n'.join([
         f'## Interface: {nos[v]}',
         *[f'## {k}: {v}' for k, v in cfg['toc'].items()],
         *files,
