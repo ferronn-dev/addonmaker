@@ -28,11 +28,11 @@ return function(before, toc)
   env['_G'] = env
   env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
   env['WOW_PROJECT_ID'] = (function()
-    if toc:find('%-Classic.toc$') then
+    if toc:find('[%-_]Classic.toc$') or toc:find('[%-_]Vanilla.toc$') then
       return env.WOW_PROJECT_CLASSIC
-    elseif toc:find('%-BCC.toc$') then
+    elseif toc:find('[%-_]BCC.toc$') or toc:find('[%-_]TBC.toc$') then
       return env.WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-    elseif toc:find('%-Mainline.toc$') then
+    elseif toc:find('[%-_]Mainline.toc$') then
       return env.WOW_PROJECT_MAINLINE
     else
       error('invalid toc name found')

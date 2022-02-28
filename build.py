@@ -30,7 +30,7 @@ sqlluas = [str(Path(f).with_suffix('.lua')) for f in sqls]
 
 if not versions:
     raise Exception('missing versions')
-tocs = [f'{addon}-{version}.toc' for version in versions]
+tocs = [f'{addon}_{version}.toc' for version in versions]
 
 print('\n'.join([
     'rule lib',

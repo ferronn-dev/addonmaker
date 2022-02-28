@@ -9,9 +9,9 @@ if 'Interface' in cfg['toc']:
     raise Exception('do not specify Interface in build.yaml toc')
 
 nos = {
-  'BCC': 20501,
-  'Classic': 11307,
   'Mainline': 90005,
+  'TBC': 20501,
+  'Vanilla': 11307,
 }
 for v in cfg['versions']:
     if v not in nos:
