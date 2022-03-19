@@ -4,6 +4,7 @@ COPY packages.txt .
 RUN apt update && apt -y install \
     cargo \
     git \
+    libxml2-utils \
     luarocks \
     man \
     ninja-build \
