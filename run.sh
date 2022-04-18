@@ -1,6 +1,6 @@
 set -e
 if [ -f '/addonmaker/main.sh' ]; then
-  exec /addonmaker/main.sh "$@"
+  exec sh /addonmaker/main.sh "$@"
 fi
 echo 'Building addonmaker...'
 if [ -n "$ADDONMAKER_IMAGE" ]; then
