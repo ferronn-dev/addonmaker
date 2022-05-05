@@ -1009,14 +1009,20 @@ return function()
       end
     end,
     UnitClass = function(unit)
-      assert(unit == 'player')
-      local name, filename = unpack(unitClasses[state.player.class])
-      return name, filename, state.player.class
+      if unit == 'player' then
+        local name, filename = unpack(unitClasses[state.player.class])
+        return name, filename, state.player.class
+      else
+        return nil
+      end
     end,
     UnitClassBase = function(unit)
-      assert(unit == 'player')
-      local _, filename = unpack(unitClasses[state.player.class])
-      return filename, state.player.class
+      if unit == 'player' then
+        local _, filename = unpack(unitClasses[state.player.class])
+        return filename, state.player.class
+      else
+        return nil
+      end
     end,
     UnitDebuff = UNIMPLEMENTED,
     UnitExists = function(unit)
