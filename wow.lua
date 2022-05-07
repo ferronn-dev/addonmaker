@@ -707,7 +707,8 @@ return function()
     C_NamePlate = {
       GetNamePlateForUnit = function(unit)
         if unit:sub(1, 9) == 'nameplate' then
-          return state.nameplates[tonumber(unit:sub(10))].np
+          local t = state.nameplates[tonumber(unit:sub(10))]
+          return t and t.np
         end
       end,
     },
