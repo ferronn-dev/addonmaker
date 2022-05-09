@@ -182,6 +182,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetBackdropColor = UNIMPLEMENTED,
         SetClampedToScreen = UNIMPLEMENTED,
         SetClampRectInsets = UNIMPLEMENTED,
+        SetFixedFrameLevel = UNIMPLEMENTED,
+        SetFixedFrameStrata = UNIMPLEMENTED,
         SetFrameLevel = UNIMPLEMENTED,
         SetFrameStrata = UNIMPLEMENTED,
         SetID = function(self, id)
