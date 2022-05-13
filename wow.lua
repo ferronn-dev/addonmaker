@@ -228,6 +228,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         GetUnit = function(self)
           return "bogusUnitName", self.unit
         end,
+        IsOwned = UNIMPLEMENTED,
         SetItem = function(self, item)
           self.item = item
           RunScript(self, 'OnTooltipSetItem')
