@@ -1,0 +1,10 @@
+{
+	"name": "ferronn-dev/addonmaker",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"features": {
+		"docker-from-docker": "latest"
+	},
+	"remoteUser": "vscode"
+}
