@@ -1119,6 +1119,7 @@ return function()
         t[k] = nil
       end
     end,
+    WorldFrame = CreateFrame('Frame'),
     WOW_PROJECT_BURNING_CRUSADE_CLASSIC = 5,
     WOW_PROJECT_CLASSIC = 2,
     WOW_PROJECT_ID = 2,
