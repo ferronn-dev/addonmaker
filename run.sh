@@ -12,8 +12,7 @@ elif [ -n "$ADDONMAKER_BUILDCACHE" ]; then
       --cache-to=type=local,dest=$ADDONMAKER_BUILDCACHE \
       addonmaker
 else
-  docker buildx build --iidfile=/tmp/iid.$$ --load addonmaker
-  image=$(cat /tmp/iid.$$)
+  image=$(docker buildx build --quiet --load addonmaker)
 fi
 echo 'Running addonmaker...'
 docker run --rm -t -v "$PWD:/addon" -u `id -u`:`id -g` --net host $image "$@"
