@@ -873,6 +873,9 @@ return function()
     end,
     GetSpellSubtext = UNIMPLEMENTED,
     GetSpellTexture = UNIMPLEMENTED,
+    GetSubZoneText = function()
+      return 'subzone'
+    end,
     GetTalentInfo = function(tab, i)
       assert(tab >= 1 and tab <= #state.talents)
       assert(i >= 1 and i <= #state.talents[tab])
@@ -889,6 +892,9 @@ return function()
       return 0
     end,
     GetZonePVPInfo = UNIMPLEMENTED,
+    GetZoneText = function()
+      return 'zone'
+    end,
     HasAction = function(action)
       return not not state.actions[action]
     end,
