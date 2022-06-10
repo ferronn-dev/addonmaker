@@ -23,6 +23,7 @@ end
 
 print([[}
 globals = {
+  'CastingBarFrame',
   'SlashCmdList',
   'StaticPopupDialogs',
 }]])

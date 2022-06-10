@@ -691,6 +691,7 @@ return function()
       band = bitlib.band,
       bor = bitlib.bor,
     },
+    BuffFrame = CreateFrame('Frame'),
     C_ChatInfo = {
       RegisterAddonMessagePrefix = UNIMPLEMENTED,
       SendAddonMessage = function(prefix, message, chatType, target)
@@ -733,6 +734,9 @@ return function()
     },
     CastingBarFrame = CreateFrame('StatusBar'),
     ChatFrame1 = CreateFrame('MessageFrame'),
+    COMBAT_TEXT_SCROLL_FUNCTION = UNIMPLEMENTED,
+    CombatText_AddMessage = UNIMPLEMENTED,
+    CompactRaidFrameManager = CreateFrame('Frame'),
     CooldownFrame_Set = UNIMPLEMENTED,
     CreateFrame = CreateFrame,
     DebuffTypeColor = {},
@@ -749,6 +753,7 @@ return function()
     ERR_LEARN_SPELL_S = 'You have learned a new spell: %s.',
     FACTION_BAR_COLORS = {},
     FindSpellBookSlotBySpellID = UNIMPLEMENTED,
+    FocusFrame = CreateFrame('Frame'),
     FollowUnit = UNIMPLEMENTED,
     format = string.format,
     GameTime_GetTime = function()
@@ -906,6 +911,7 @@ return function()
       return 0
     end,
     GetWeaponEnchantInfo = UNIMPLEMENTED,
+    GetXPExhaustion = UNIMPLEMENTED,
     GetZonePVPInfo = UNIMPLEMENTED,
     GetZoneText = function()
       return 'zone'
@@ -974,6 +980,10 @@ return function()
     NUM_BAG_SLOTS = 4,
     NUM_BANKBAGSLOTS = 6,
     NUM_PET_ACTION_SLOTS = 10,
+    PartyMemberFrame1 = CreateFrame('Button'),
+    PartyMemberFrame2 = CreateFrame('Button'),
+    PartyMemberFrame3 = CreateFrame('Button'),
+    PartyMemberFrame4 = CreateFrame('Button'),
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
     PROFESSIONS_FIRST_AID = 'First Aid',
@@ -1034,6 +1044,7 @@ return function()
       end
     end,
     TargetFrame = CreateFrame('Button'),
+    TemporaryEnchantFrame = CreateFrame('Frame'),
     TimeManagerClockButton = CreateFrame('Frame'),
     TOOLTIP_UPDATE_TIME = 0.2,
     UIParent = CreateFrame('Frame'),
