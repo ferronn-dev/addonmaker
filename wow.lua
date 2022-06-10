@@ -194,7 +194,6 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetMouseClickEnabled = UNIMPLEMENTED,
         SetMovable = UNIMPLEMENTED,
         SetResizable = UNIMPLEMENTED,
-        SetScale = UNIMPLEMENTED,
         SetToplevel = UNIMPLEMENTED,
         SetUserPlaced = UNIMPLEMENTED,
         UnregisterAllEvents = UNIMPLEMENTED,
@@ -300,6 +299,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         end,
         SetParent = UNIMPLEMENTED,
         SetPoint = UNIMPLEMENTED,
+        SetScale = UNIMPLEMENTED,
         SetShown = function(self, value)
           if value then self:Show() else self:Hide() end
         end,
@@ -388,6 +388,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
   mixins = {
     ActionButtonTemplate = function()
       return {
+        AutoCastable = CreateFrame('Texture'),
+        AutoCastShine = CreateFrame('Frame'),
         Border = CreateFrame('Texture'),
         cooldown = CreateFrame('Cooldown'),
         Count = CreateFrame('FontString'),
