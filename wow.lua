@@ -127,6 +127,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         GetFontObject = function(self)
           return self.fontObject
         end,
+        GetTextColor = UNIMPLEMENTED,
         SetFont = UNIMPLEMENTED,
         SetFontObject = function(self, fontObject)
           self.fontObject = fontObject
@@ -722,7 +723,8 @@ return function()
           interval = interval,
           func = func,
         })
-      end
+      end,
+      NewTimer = UNIMPLEMENTED,
     },
     CastingBarFrame = CreateFrame('StatusBar'),
     ChatFrame1 = CreateFrame('MessageFrame'),
