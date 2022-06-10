@@ -682,6 +682,9 @@ return function()
     },
     AutoCastShine_AutoCastStart = UNIMPLEMENTED,
     AutoCastShine_AutoCastStop = UNIMPLEMENTED,
+    BACKPACK_CONTAINER = 0,
+    BANK_CONTAINER = -1,
+    BASE_MOVEMENT_SPEED = 7,
     bit = {
       band = bitlib.band,
       bor = bitlib.bor,
@@ -746,6 +749,9 @@ return function()
     FindSpellBookSlotBySpellID = UNIMPLEMENTED,
     FollowUnit = UNIMPLEMENTED,
     format = string.format,
+    GameTime_GetTime = function()
+      return '1:23'
+    end,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
     GameTooltip_SetDefaultAnchor = UNIMPLEMENTED,
     GameTooltipTextRight1 = CreateFrame('FontString'),
@@ -775,6 +781,7 @@ return function()
       return ''
     end,
     GetContainerItemInfo = UNIMPLEMENTED,
+    GetContainerItemLink = UNIMPLEMENTED,
     GetContainerNumFreeSlots = function()
       return 2
     end,
@@ -818,6 +825,9 @@ return function()
     GetItemSpell = UNIMPLEMENTED,
     GetLocale = UNIMPLEMENTED,
     GetMacroInfo = UNIMPLEMENTED,
+    GetMaxPlayerLevel = function()
+      return 60
+    end,
     GetMoney = function()
       return 0
     end,
@@ -847,6 +857,7 @@ return function()
     GetPetActionInfo = function(num)
       return unpack(state.petactions[num] or {})
     end,
+    GetPetHappiness = UNIMPLEMENTED,
     GetRealmName = function()
       return state.realm
     end,
@@ -891,6 +902,7 @@ return function()
     GetUnitSpeed = function()
       return 0
     end,
+    GetWeaponEnchantInfo = UNIMPLEMENTED,
     GetZonePVPInfo = UNIMPLEMENTED,
     GetZoneText = function()
       return 'zone'
@@ -931,12 +943,14 @@ return function()
     IsMounted = function()
       return state.isMounted
     end,
+    IsResting = UNIMPLEMENTED,
     IsShiftKeyDown = UNIMPLEMENTED,
     IsSpellInRange = UNIMPLEMENTED,
     IsSpellKnown = function(spell)
       return state:IsSpellKnown(spell)
     end,
     IsStackableAction = UNIMPLEMENTED,
+    IsStealthed = UNIMPLEMENTED,
     IsUsableAction = UNIMPLEMENTED,
     IsUsableItem = UNIMPLEMENTED,
     IsUsableSpell = function(spell)
@@ -955,6 +969,7 @@ return function()
     Mixin = Mixin,
     NumberFont_Small = CreateFrame('FontInstance'),
     NUM_BAG_SLOTS = 4,
+    NUM_BANKBAGSLOTS = 6,
     NUM_PET_ACTION_SLOTS = 10,
     PlayerFrame = CreateFrame('Button'),
     PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
@@ -1045,9 +1060,11 @@ return function()
     UnitExists = function(unit)
       return unit == 'player'
     end,
+    UnitGetIncomingHeals = UNIMPLEMENTED,
     UnitGUID = function(unit)
       return 'GUID:' .. unit
     end,
+    UnitHasIncomingResurrection = UNIMPLEMENTED,
     UnitHealth = function()
       return state.player.health
     end,
@@ -1059,6 +1076,7 @@ return function()
     end,
     UnitInRaid = UNIMPLEMENTED,
     UnitInRange = UNIMPLEMENTED,
+    UnitIsConnected = UNIMPLEMENTED,
     UnitIsDeadOrGhost = UNIMPLEMENTED,
     UnitIsUnit = UNIMPLEMENTED,
     UnitLevel = function()
