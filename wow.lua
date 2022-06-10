@@ -756,6 +756,7 @@ return function()
     end,
     GameTooltip = CreateFrame('GameTooltip', 'GameTooltip'),
     GameTooltip_SetDefaultAnchor = UNIMPLEMENTED,
+    GameTooltipStatusBar = CreateFrame('StatusBar'),
     GameTooltipTextRight1 = CreateFrame('FontString'),
     GetActionCooldown = function()
       return 0, 0, 0
