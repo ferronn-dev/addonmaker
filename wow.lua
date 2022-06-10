@@ -771,6 +771,9 @@ return function()
       return '1.13.6', '55555', 'Jan 11 2021', 11306
     end,
     GetClassColor = UNIMPLEMENTED,
+    GetCoinTextureString = function()
+      return ''
+    end,
     GetContainerItemInfo = UNIMPLEMENTED,
     GetContainerNumFreeSlots = function()
       return 2
@@ -815,7 +818,9 @@ return function()
     GetItemSpell = UNIMPLEMENTED,
     GetLocale = UNIMPLEMENTED,
     GetMacroInfo = UNIMPLEMENTED,
-    GetMoney = UNIMPLEMENTED,
+    GetMoney = function()
+      return 0
+    end,
     GetMouseFocus = UNIMPLEMENTED,
     GetNumCrafts = function()
       return #state.crafts
