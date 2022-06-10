@@ -218,6 +218,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         AddLine = function(self, s, r, g, b)
           self:AddDoubleLine(s, nil, r, g, b, nil, nil, nil)
         end,
+        ClearLines = function(self)
+          self.lines = {}
+        end,
         GetItem = function(self)
           return self.item
         end,
@@ -229,6 +232,10 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           return "bogusUnitName", self.unit
         end,
         IsOwned = UNIMPLEMENTED,
+        NumLines = function(self)
+          return #self.lines
+        end,
+        SetInventoryItem = UNIMPLEMENTED,
         SetItem = function(self, item)
           self.item = item
           RunScript(self, 'OnTooltipSetItem')
@@ -520,6 +527,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       }
     end,
     SecureUnitButtonTemplate = UNIMPLEMENTED,
+    SharedTooltipTemplate = UNIMPLEMENTED,
     UIPanelButtonTemplate = function(self)
       return {
         Text = CreateFrame('FontString', self:GetName() .. 'Text')
@@ -740,6 +748,7 @@ return function()
     CooldownFrame_Set = UNIMPLEMENTED,
     CreateFrame = CreateFrame,
     DebuffTypeColor = {},
+    DevTools_Dump = UNIMPLEMENTED,
     DisableAddOn = UNIMPLEMENTED,
     DoEmote = UNIMPLEMENTED,
     Enum = {
