@@ -721,6 +721,9 @@ return function()
       GetMapInfo = function(mapid)
         return { name = 'o' .. mapid }
       end,
+      GetPlayerMapPosition = function()
+        return { x = 0.12, y = 0.34 }
+      end,
     },
     C_NamePlate = {
       GetNamePlateForUnit = function(unit)
