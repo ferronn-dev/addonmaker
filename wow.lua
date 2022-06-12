@@ -978,6 +978,7 @@ return function()
       return state:IsSpellKnown(spell), false
     end,
     ItemRefTooltip = CreateFrame('GameTooltip'),
+    LoadAddOn = UNIMPLEMENTED,
     MainMenuBar = CreateFrame('Frame'),
     MAX_PARTY_MEMBERS = 4,
     MAX_RAID_MEMBERS = 40,
