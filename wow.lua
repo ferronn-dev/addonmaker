@@ -1108,6 +1108,9 @@ return function()
     UnitName = function()
       return state.player.name
     end,
+    UnitPosition = function()
+      return 0, 0
+    end,
     UnitPower = function()
       return state.player.power
     end,
