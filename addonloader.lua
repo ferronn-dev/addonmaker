@@ -32,6 +32,8 @@ return function(before, toc)
       return env.WOW_PROJECT_CLASSIC
     elseif toc:find('[%-_]BCC.toc$') or toc:find('[%-_]TBC.toc$') then
       return env.WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+    elseif toc:find('[%-_]WOTLKC.toc$') or toc:find('[%-_]Wrath.toc$') then
+      return env.WOW_PROJECT_BURNING_CRUSADE_CLASSIC
     elseif toc:find('[%-_]Mainline.toc$') then
       return env.WOW_PROJECT_MAINLINE
     else
