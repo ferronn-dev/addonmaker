@@ -17,6 +17,11 @@ repos:
     - --shell=bash
 - repo: local
   hooks:
+  - id: luacheck
+    name: luacheck
+    entry: luacheck
+    language: system
+    types: [lua]
   - id: pylint
     name: pylint
     entry: pylint
