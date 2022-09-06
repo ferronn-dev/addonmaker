@@ -23,5 +23,5 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         platforms: linux/amd64,linux/arm64
-        push: ${{ ((github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+        push: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         tags: ghcr.io/ferronn-dev/addonmaker:latest
