@@ -22,7 +22,7 @@ jobs:
     - name: Build and test in devcontainer
       uses: devcontainers/ci@v0.2
       with:
-        runCmd: bash -c "$(jq .postCreateCommand .devcontainer/devcontainer.json)"
+        runCmd: true
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
