@@ -15,7 +15,8 @@ def luaquote(string):
 
 def py2lua(value, indent=''):
     """Converts a python datatype into a string containing a Lua literal."""
-    recurse = lambda x: py2lua(x, indent + '  ')
+    def recurse(val):
+        py2lua(val, indent + '  ')
     return (
         luaquote(value) if isinstance(value, str) else
         ('true' if value else 'false') if isinstance(value, bool) else

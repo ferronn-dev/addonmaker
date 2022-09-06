@@ -1,6 +1,7 @@
 {
 	"name": "ferronn-dev/addonmaker",
 	"build": {
+		"context": "..",
 		"dockerfile": "Dockerfile"
 	},
 	"features": {

@@ -74,7 +74,7 @@ def main():
             trie[path] = data
         return trie.traverse(
             lambda _, path, kids, value=None:
-            (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:
+            (lambda merged=value if value else { k: v for kid in kids for k, v in kid.items() }:  # pylint: disable=unnecessary-direct-lambda-call
             { path[-1]: merged } if path else merged)())  # pylint: disable=undefined-loop-variable
 
     tuples = [
