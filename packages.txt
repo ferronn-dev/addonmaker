@@ -1,2 +1,0 @@
-liblua5.1-dev
-lua5.1

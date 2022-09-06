@@ -1,4 +1,5 @@
 google-cloud-bigquery
+hererocks
 lxml
 pygtrie
 pylint

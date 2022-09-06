@@ -1,23 +1,26 @@
+FROM rust:slim-bullseye AS stylua-builder
+RUN cargo install --root=/opt/stylua --version=0.12.4 stylua
+
 FROM debian:testing
 WORKDIR /addonmaker
-COPY packages.txt .
 RUN apt update && apt -y install \
-    cargo \
+    curl \
     git \
+    libreadline-dev \
     libxml2-utils \
-    luarocks \
     man \
     ninja-build \
     pre-commit \
     python3-pip \
     subversion \
-    `cat packages.txt`
-RUN cargo install --root=/usr/local --version=0.12.4 stylua
+    unzip
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
+RUN hererocks -l 5.1 -r 3.8.0 /usr/local
 COPY rocks.txt .
 RUN cat rocks.txt | xargs -n1 luarocks install
 COPY *.lua *.py *.sh creds.json .pylintrc ./
-RUN lua5.1 gencheck.lua > luacheckrc.lua
+RUN lua gencheck.lua > luacheckrc.lua
 #RUN luacheck *.lua && pylint *.py
+COPY --from=stylua-builder /opt/stylua /usr/local
 WORKDIR /addon
