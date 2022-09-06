@@ -14,7 +14,7 @@ fetch() {
       return 1
     fi
   fi
-  if [ -f "$out/build.yaml" -o -f "$out/.pkgmeta" ]
+  if [ -f "$out/build.yaml" ] || [ -f "$out/.pkgmeta" ]
   then
     if ! (cd "$out" && sh /addonmaker/main.sh); then
       # Die on unrecoverable errors, say a test failure.

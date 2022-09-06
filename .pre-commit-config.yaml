@@ -9,6 +9,12 @@ repos:
   rev: v0.12.1
   hooks:
   - id: stylua-system
+- repo: https://github.com/shellcheck-py/shellcheck-py
+  rev: v0.8.0.1
+  hooks:
+  - id: shellcheck
+    args:
+    - --shell=bash
 - repo: local
   hooks:
   - id: pylint

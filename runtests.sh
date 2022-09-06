@@ -1,11 +1,11 @@
 set -e
-eval `luarocks path`
+eval "$(luarocks path)"
 export LUA_PATH="/addonmaker/?.lua;$LUA_PATH"
-function luas { find -name "$1" -not -path './libs/*' -not -path './addonmaker/*' ; }
+function luas { find . -name "$1" -not -path './libs/*' -not -path './addonmaker/*' ; }
 luas '*.lua' | xargs luacheck -q --config /addonmaker/luacheckrc.lua
-luas '*test.lua' | while read test; do
+luas '*test.lua' | while read -r test; do
   echo "******** $test *******"
-  lua $test
+  lua "$test"
 done
 declare -A pids
 for toc in *.toc; do
