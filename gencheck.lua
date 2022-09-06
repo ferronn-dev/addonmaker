@@ -18,7 +18,7 @@ for k in pairs(require('wow')({})) do
 end
 table.sort(symbols)
 for _, k in ipairs(symbols) do
-  print("  '" .. k .. "',")
+  print('  \'' .. k .. '\',')
 end
 
 print([[}

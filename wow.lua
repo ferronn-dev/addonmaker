@@ -5,7 +5,7 @@ local UNIMPLEMENTED = function() end
 local unpack = unpack or table.unpack
 
 local function Mixin(obj, ...)
-  for _, t in ipairs({...}) do
+  for _, t in ipairs({ ... }) do
     for k, v in pairs(t) do
       obj[k] = v
     end
@@ -43,14 +43,14 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
   end
   local hierarchy = {
     Alpha = {
-      inherits = {'Animation'},
+      inherits = { 'Animation' },
       api = {
         SetFromAlpha = UNIMPLEMENTED,
         SetToAlpha = UNIMPLEMENTED,
       },
     },
     Animation = {
-      inherits = {'ScriptObject', 'UIObject'},
+      inherits = { 'ScriptObject', 'UIObject' },
       api = {
         SetDuration = UNIMPLEMENTED,
         SetOrder = UNIMPLEMENTED,
@@ -58,7 +58,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     AnimationGroup = {
-      inherits = {'Region', 'ScriptObject'},
+      inherits = { 'Region', 'ScriptObject' },
       api = {
         CreateAnimation = function(self, animType)
           return CreateFrame(animType, nil, self)
@@ -68,8 +68,8 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     Button = {
-      inherits = {'Frame'},
-      scripts = {'PreClick', 'OnClick', 'PostClick'},
+      inherits = { 'Frame' },
+      scripts = { 'PreClick', 'OnClick', 'PostClick' },
       api = {
         Click = function(self, ...)
           RunScript(self, 'PreClick', ...)
@@ -105,18 +105,18 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     CheckButton = {
-      inherits = {'Button'},
+      inherits = { 'Button' },
       api = {
         SetChecked = UNIMPLEMENTED,
       },
     },
     Cooldown = {
-      inherits = {'Frame'},
+      inherits = { 'Frame' },
       api = {
         SetDrawBling = UNIMPLEMENTED,
         SetReverse = UNIMPLEMENTED,
         SetSwipeColor = UNIMPLEMENTED,
-      }
+      },
     },
     FontInstance = {
       data = {
@@ -138,7 +138,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     FontString = {
-      inherits = {'FontInstance', 'LayeredRegion'},
+      inherits = { 'FontInstance', 'LayeredRegion' },
       api = {
         GetText = function(self)
           return self.fontStringText
@@ -149,12 +149,12 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     Frame = {
-      inherits = {'Region', 'ScriptObject'},
+      inherits = { 'Region', 'ScriptObject' },
       data = {
         attributes = {},
         registeredEvents = {},
       },
-      scripts = {'OnEvent', 'OnUpdate'},
+      scripts = { 'OnEvent', 'OnUpdate' },
       api = {
         CreateFontString = function(self)
           return CreateFrame('FontString', nil, self)
@@ -201,17 +201,22 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     GameTooltip = {
-      inherits = {'Frame'},
+      inherits = { 'Frame' },
       data = {
         lines = {},
       },
-      scripts = {'OnTooltipSetItem', 'OnTooltipSetSpell', 'OnTooltipSetUnit'},
+      scripts = { 'OnTooltipSetItem', 'OnTooltipSetSpell', 'OnTooltipSetUnit' },
       api = {
         AddDoubleLine = function(self, l, r, lr, lg, lb, rr, rg, rb)
           table.insert(self.lines, {
-              l = l, r = r,
-              lr = lr, lg = lg, lb = lb,
-              rr = rr, rg = rg, rb = rb
+            l = l,
+            r = r,
+            lr = lr,
+            lg = lg,
+            lb = lb,
+            rr = rr,
+            rg = rg,
+            rb = rb,
           })
         end,
         AddFontStrings = UNIMPLEMENTED,
@@ -229,7 +234,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
           return self.spell
         end,
         GetUnit = function(self)
-          return "bogusUnitName", self.unit
+          return 'bogusUnitName', self.unit
         end,
         IsOwned = UNIMPLEMENTED,
         NumLines = function(self)
@@ -252,23 +257,23 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     LayeredRegion = {
-      inherits = {'Region'},
+      inherits = { 'Region' },
       api = {
         SetVertexColor = UNIMPLEMENTED,
       },
     },
     MessageFrame = {
-      inherits = {'Frame', 'FontInstance'},
+      inherits = { 'Frame', 'FontInstance' },
     },
     Minimap = {
-      inherits = {'Frame'},
+      inherits = { 'Frame' },
       api = {
         SetMaskTexture = UNIMPLEMENTED,
         SetZoom = UNIMPLEMENTED,
       },
     },
     Region = {
-      inherits = {'UIObject', 'ScriptObject'},
+      inherits = { 'UIObject', 'ScriptObject' },
       data = {
         alpha = 1.0,
         shown = true,
@@ -308,7 +313,11 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
         SetPoint = UNIMPLEMENTED,
         SetScale = UNIMPLEMENTED,
         SetShown = function(self, value)
-          if value then self:Show() else self:Hide() end
+          if value then
+            self:Show()
+          else
+            self:Hide()
+          end
         end,
         SetSize = UNIMPLEMENTED,
         SetWidth = UNIMPLEMENTED,
@@ -341,16 +350,16 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
             hooks = {},
           }
         end,
-      }
+      },
     },
     ScrollFrame = {
-      inherits = {'Frame'},
+      inherits = { 'Frame' },
       api = {
         SetScrollChild = UNIMPLEMENTED,
       },
     },
     Slider = {
-      inherits = {'Frame'},
+      inherits = { 'Frame' },
       api = {
         SetMinMaxValues = UNIMPLEMENTED,
         SetValue = UNIMPLEMENTED,
@@ -358,7 +367,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     StatusBar = {
-      inherits = {'Frame'},
+      inherits = { 'Frame' },
       api = {
         SetMinMaxValues = UNIMPLEMENTED,
         SetStatusBarColor = UNIMPLEMENTED,
@@ -367,7 +376,7 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       },
     },
     Texture = {
-      inherits = {'LayeredRegion'},
+      inherits = { 'LayeredRegion' },
       api = {
         GetTexture = UNIMPLEMENTED,
         GetVertexColor = UNIMPLEMENTED,
@@ -415,12 +424,12 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     GameTooltipTemplate = UNIMPLEMENTED,
     OptionsButtonTemplate = function(self)
       return {
-        Text = CreateFrame('FontString', self:GetName() .. 'Text')
+        Text = CreateFrame('FontString', self:GetName() .. 'Text'),
       }
     end,
     OptionsCheckButtonTemplate = function(self)
       return {
-        Text = CreateFrame('FontString', self:GetName() .. 'Text')
+        Text = CreateFrame('FontString', self:GetName() .. 'Text'),
       }
     end,
     SecureActionButtonTemplate = function()
@@ -494,7 +503,9 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
       renv = {
         control = wself,
         ipairs = ipairs,
-        newtable = function() return {} end,
+        newtable = function()
+          return {}
+        end,
         owner = wself,
         pairs = pairs,
         self = wself,
@@ -530,11 +541,11 @@ local function CreateFrameImpl(env, state, className, frameName, parent, templat
     SharedTooltipTemplate = UNIMPLEMENTED,
     UIPanelButtonTemplate = function(self)
       return {
-        Text = CreateFrame('FontString', self:GetName() .. 'Text')
+        Text = CreateFrame('FontString', self:GetName() .. 'Text'),
       }
     end,
   }
-  local toProcess = {className}
+  local toProcess = { className }
   local classes = {}
   while #toProcess > 0 do
     local p = table.remove(toProcess)
@@ -654,7 +665,7 @@ return function()
         index = #self.nameplates
       end
       self.nameplates[index].used = true
-      local name = 'nameplate'..index
+      local name = 'nameplate' .. index
       self:SendEvent('NAME_PLATE_UNIT_ADDED', name)
       return name
     end,
@@ -897,7 +908,7 @@ return function()
       return 0
     end,
     GetSpellInfo = function(spell)
-      return 'spell'..spell, nil, 12345, 0, 0, 0, 23456
+      return 'spell' .. spell, nil, 12345, 0, 0, 0, 23456
     end,
     GetSpellLossOfControlCooldown = function()
       return 0, 0
@@ -998,7 +1009,7 @@ return function()
     PartyMemberFrame3 = CreateFrame('Button'),
     PartyMemberFrame4 = CreateFrame('Button'),
     PlayerFrame = CreateFrame('Button'),
-    PowerBarColor = {MANA = {r=0.5, g=0.5, b=0.5}},
+    PowerBarColor = { MANA = { r = 0.5, g = 0.5, b = 0.5 } },
     PROFESSIONS_FIRST_AID = 'First Aid',
     RaidFrame = CreateFrame('Frame'),
     RAID_CLASS_COLORS = {},
@@ -1011,7 +1022,7 @@ return function()
       return true
     end,
     SetBindingClick = function(key, buttonName)
-      state.bindings[key] = 'CLICK '..buttonName
+      state.bindings[key] = 'CLICK ' .. buttonName
       return true
     end,
     SendChatMessage = function(message, chatType)

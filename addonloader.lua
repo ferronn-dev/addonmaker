@@ -4,7 +4,7 @@ local function files(toc)
   for line in io.lines(toc) do
     line = line:match('^%s*(.-)%s*$'):gsub('\\', '/')
     if line ~= '' and line:sub(1, 2) ~= '##' and line:sub(-4) == '.lua' then
-      local f = assert(io.open(line, "rb"))
+      local f = assert(io.open(line, 'rb'))
       local content = f:read('*all')
       f:close()
       if content:sub(1, 3) == '\239\187\191' then
@@ -26,7 +26,9 @@ return function(before, toc)
   env.table.unpack = nil
   env.table.wipe = env.wipe
   env['_G'] = env
-  env['print'] = function(str) state.printed = state.printed .. str .. '\n' end
+  env['print'] = function(str)
+    state.printed = state.printed .. str .. '\n'
+  end
   env['WOW_PROJECT_ID'] = (function()
     if toc:find('[%-_]Classic.toc$') or toc:find('[%-_]Vanilla.toc$') then
       return env.WOW_PROJECT_CLASSIC
