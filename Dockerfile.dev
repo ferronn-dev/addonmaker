@@ -21,6 +21,5 @@ COPY rocks.txt .
 RUN cat rocks.txt | xargs -n1 luarocks install
 COPY *.lua *.py *.sh creds.json .pylintrc ./
 RUN lua gencheck.lua > luacheckrc.lua
-#RUN luacheck *.lua && pylint *.py
 COPY --from=stylua-builder /opt/stylua /usr/local
 WORKDIR /addon

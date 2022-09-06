@@ -14,6 +14,5 @@ RUN wget https://github.com/cli/cli/releases/download/v1.14.0/gh_1.14.0_${TARGET
 RUN apt install ./gh_1.14.0_${TARGETOS}_${TARGETARCH}.deb
 COPY *.lua *.py *.sh creds.json .pylintrc ./
 RUN lua gencheck.lua > luacheckrc.lua
-#RUN luacheck *.lua && pylint *.py
 WORKDIR /addon
 ENTRYPOINT ["sh", "/addonmaker/main.sh"]
