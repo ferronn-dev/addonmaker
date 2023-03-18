@@ -2,7 +2,7 @@
 persistent=no
 
 [MESSAGES CONTROL]
-disable=c-extension-no-member,
+disable=broad-exception-raised,c-extension-no-member,
 
 [REPORTS]
 score=no
