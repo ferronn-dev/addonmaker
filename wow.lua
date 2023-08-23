@@ -722,6 +722,15 @@ return function()
         })
       end,
     },
+    C_Container = {
+      GetContainerItemLink = UNIMPLEMENTED,
+      GetContainerNumSlots = function()
+        return 4
+      end,
+      GetItemCooldown = function()
+        return 0, 0, 0
+      end,
+    },
     C_Item = {
       RequestLoadItemDataByID = function(item)
         state:SendEvent('ITEM_DATA_LOAD_RESULT', item, true)
