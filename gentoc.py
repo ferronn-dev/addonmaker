@@ -35,7 +35,9 @@ rawlibfiles = [
     )
 ]
 libfiles = []
-[libfiles.append(x) for x in rawlibfiles if x not in libfiles]
+for x in rawlibfiles:
+    if x not in libfiles:
+        libfiles.append(x)
 files = libfiles + toposort_flatten({
     k: set(v)
     for k, v in {
