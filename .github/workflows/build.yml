@@ -12,7 +12,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ferronn-dev
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.CR_PAT }}
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
