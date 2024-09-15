@@ -18,7 +18,7 @@ for v in cfg['versions']:
     if v not in nos:
         raise Exception('bad version')
 
-libfiles = [
+rawlibfiles = [
     f'libs/{lib}/{luafile}'
     for lib in cfg['libs']
     for toc in Path(f'libs/{lib}').glob('*.toc')
@@ -34,6 +34,8 @@ libfiles = [
         ])] if line.endswith('.xml') else []
     )
 ]
+libfiles = []
+[libfiles.append(x) for x in rawlibfiles if x not in libfiles]
 files = libfiles + toposort_flatten({
     k: set(v)
     for k, v in {
