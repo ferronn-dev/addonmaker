@@ -871,6 +871,9 @@ return function()
     GetMoney = function()
       return 0
     end,
+    GetMouseFoci = function()
+      return {}
+    end,
     GetMouseFocus = UNIMPLEMENTED,
     GetNumCrafts = function()
       return #state.crafts
